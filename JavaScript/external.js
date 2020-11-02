@@ -2,8 +2,9 @@ require([
   "esri/Map",
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
-  "esri/widgets/BasemapGallery"
-], function(Map, MapView, BasemapToggle, BasemapGallery){
+  "esri/widgets/BasemapGallery",
+  "esri/layers/FeatureLayer"
+], function(Map, MapView, BasemapToggle, FeatureLayer){
     var map = new Map({
       basemap: "topo-vector"
   });
@@ -13,21 +14,13 @@ require([
     center: [-97.9414, 29.8833],
     zoom: 13
   });
-  /*var basemapToggle = new BasemapToggle({
+  var basemapToggle = new BasemapToggle({
     view: view,
     nextBasemap: "satellite"
   });
-  view.ui.add(basemapToggle, "bottom-right");*/
-  var basemapGallery = new BasemapGallery({
-    view: view,
-    source: {
-      portal:{
-        url: "https://www.arcgis.com",
-        useVectorBasemaps: true //load vector tile basemaps
-      }
-    }
-  });
-  view.ui.add(basemapGallery, "top-right");
+  view.ui.add(basemapToggle, "bottom-right");
+
+
 });
 
 

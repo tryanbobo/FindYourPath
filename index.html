@@ -3,43 +3,28 @@
 <head>
   <meta charset="utf-8">
   <title>Current Weather</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <link rel="stylesheet" href="CSS/main_style.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/css/main.css">
+
+  <script src="https://js.arcgis.com/4.17/"></script>
+  <script src="JavaScript/external.js"></script>
+
 </head>
+
 <body>
+
   <div id="weather">
     <div id="description"></div>
     <h1 id="temp"></h1>
     <div id="location"></div>
     <div id="precip"></div>
   </div>
-  <script lang="text/javascript">
-    // future JS
-    function weatherBalloon( cityID ) {
-      var key = '4f65582b38d251b7b07af44b50464e8a';
-      fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)//fetches stream of weather data
-      .then(function(resp) { return resp.json() }) //convert data to JSON
-      .then(function(data) {
-        drawWeather(data);
-        console.log(data);
-      })
-      .catch(function() {
-        //catch any errors
-      });
-    }
 
-    window.onload = function(){
-      weatherBalloon( 4726491 );
-    }
 
-    function drawWeather( d ) {
-      var celcius = Math.round(parseFloat(d.main.temp)-273.15);
-      var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32);
+  <div id="viewDiv"></div>
 
-      document.getElementById('description').innerHTML = d.weather[0].description;
-	    document.getElementById('temp').innerHTML = fahrenheit + '&deg;';
-	    document.getElementById('location').innerHTML = d.name;
-      //document.getElementByID('precip').innerHTML = d.
-}
-
-  </script>
 </body>
 </html>

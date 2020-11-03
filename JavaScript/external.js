@@ -37,7 +37,9 @@ require([
   });
 });
 
-// WeatherBallon
+
+
+// WeatherBallon ///////////////////////////////////////////////////////////////
 function weatherBalloon( cityID ) {
   var key = '4f65582b38d251b7b07af44b50464e8a';
   fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)//fetches stream of weather data

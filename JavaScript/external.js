@@ -2,11 +2,12 @@ require([
   "esri/Map",
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
-  "esri/widgets/BasemapGallery",
+  "esri/widgets/Track",
   "esri/layers/FeatureLayer"
-], function(Map, MapView, BasemapToggle, FeatureLayer){
+
+], function(Map, MapView, BasemapToggle, Track, FeatureLayer){
     var map = new Map({
-      basemap: "topo-vector"
+      basemap: "topo-vector",
   });
   var view = new MapView({
     container: "viewDiv",
@@ -20,9 +21,21 @@ require([
   });
   view.ui.add(basemapToggle, "bottom-right");
 
+  //add trails feature layer(line) NOT WORKING
+  var trailsLayer = new FeatureLayer({
+    url:
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer"
+  });
+  //map.add(trailsLayer);
 
+  var track = new Track({
+    view: view  //assigns tracker to current map view
+  });
+  view.ui.add(track, "top-left"); //adds tracker to top-right of view
+  view.when(function () {  //loads tracker function when view loads
+    track.start();  //starts tracker
+  });
 });
-
 
 // WeatherBallon
 function weatherBalloon( cityID ) {

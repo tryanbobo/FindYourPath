@@ -21,12 +21,36 @@ require([
   });
   view.ui.add(basemapToggle, "bottom-right");
 
-  //add trails feature layer(line) NOT WORKING
+  //parks renderer
+  var parksRenderer = {
+    type: "simple",
+    symbol: {
+      color: "green",
+      type: "simple-fill",
+      style: "solid",
+      outline:{
+        style: "solid",
+        color: "grey",
+        width: 3
+      }
+    }
+  };
+  //add parks feature layer(line)
+  var parksLayer = new FeatureLayer({
+    url:
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
+    renderer: parksRenderer,
+    opacity: 0.2
+  });
+  map.add(parksLayer);
+
+  //add trails feature layer(line)
   var trailsLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer"
   });
-  //map.add(trailsLayer);
+  map.add(trailsLayer);
+
 
   var track = new Track({
     view: view  //assigns tracker to current map view

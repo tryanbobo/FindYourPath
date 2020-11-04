@@ -37,8 +37,6 @@ require([
   });
 });
 
-
-
 // WeatherBallon ///////////////////////////////////////////////////////////////
 function weatherBalloon( cityID ) {
   var key = '4f65582b38d251b7b07af44b50464e8a';
@@ -74,3 +72,21 @@ function drawWeather( d ) {
   	document.body.className = 'sunny';
   }
 }
+
+//Attempt at historical weather data api request.
+/*
+function rainCondition( cityID ) {
+  var key = "4f65582b38d251b7b07af44b50464e8a";
+  var lat = "29.8833";
+  var long = "-97.9414"
+  fetch("http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=" + lat + "&lon=" + long +".9&dt=1586468027&appid=" + key)
+  .then(function(resp) {return resp.json() })
+  .then(funtion(data) {
+    console.log(data);
+  });
+  .catch(function(){
+  });
+}
+
+$.getJSON('http://openweathermap.org/data/2.1/find/city?lat=13.3428&lon=-6.2661&cnt=10&callback=?', function(data) { console.log(data); });
+*/

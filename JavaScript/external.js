@@ -105,10 +105,49 @@ function drawWeather( d ) {
   	document.body.className = 'sunny';
   }
 }
+//need to create a loop that runs through (5) 24hr periods gets json and adds resulting precip to each other.
+/*
+//unix time stamp right now in seconds
+const rightNow = Math.floor(Date.now() / 1000);
+const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
+const key3 = "0a61a8d5e2c8a4d55eeff773162e3649"
+const fivedayURL = "http://history.openweathermap.org/data/2.5/history/city?lat=29.8833&&lon=-97.9414&type=hour&start=" + rightNow + "&end=" + fiveDaysAgo + "&appid=" + key3;
+async function getData(){
+  const response = await fetch(fivedayURL)
+  const histData = await response.json();
+  console.log(histData);
+}
+getData();
+*/
 
-var fiveDaysAgo = Math.floor((Date.now() / 1000)-432000)
-console.log(fiveDaysAgo);
-"http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=1586468027&appid=3991389dd7ddbf7746915724989bb78a"
+//WORKS Provies a json of hourly weather data for (1)24 hr period starting 5 days ago.
+const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
+const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=3991389dd7ddbf7746915724989bb78a"
+async function getData(){
+  const response = await fetch(fivedayURL)
+  const histData = await response.json();
+  console.log(histData);
+}
+getData();
+
+
+/*
+function fiveDayPrecip(){
+  var fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
+  console.log(fiveDaysAgo);
+  var key2 = "3991389dd7ddbf7746915724989bb78a";
+  fetch("http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=" + key2)
+    .then(function(resp2) { return resp2.json() })
+    .then(function(data1)
+      console.log(data1);
+  })
+  .catch(function(){
+
+  })
+  }
+  window.onload = function(){
+    fiveDayPrecip();
+  }
 //Attempt at historical weather data api request.
 /*
 function rainCondition( cityID ) {

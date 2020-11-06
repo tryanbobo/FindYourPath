@@ -44,10 +44,19 @@ require([
   });
   map.add(parksLayer);
 
+  var popupTrails = {
+    title: "{NAME}",
+
+    content:
+      "<b>Type:</b> {TYPE}<br> <b>Length:</b> {LENGTH_MIL} miles<br> <b>Park:</b> {PARK}"
+  }
+
   //add trails feature layer(line)
   var trailsLayer = new FeatureLayer({
     url:
-      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer"
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer",
+      outFields: ["TYPE", "LENGTH_MIL", "PARK"],
+      popupTemplate: popupTrails
   });
   map.add(trailsLayer);
 
@@ -97,6 +106,9 @@ function drawWeather( d ) {
   }
 }
 
+var fiveDaysAgo = Math.floor((Date.now() / 1000)-432000)
+console.log(fiveDaysAgo);
+"http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=1586468027&appid=3991389dd7ddbf7746915724989bb78a"
 //Attempt at historical weather data api request.
 /*
 function rainCondition( cityID ) {

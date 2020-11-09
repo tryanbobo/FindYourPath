@@ -123,12 +123,48 @@ getData();
 //WORKS Provies a json of hourly weather data for (1)24 hr period starting 5 days ago.
 const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
 const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=3991389dd7ddbf7746915724989bb78a"
-async function getData(){
-  const response = await fetch(fivedayURL)
-  const histData = await response.json();
-  console.log(histData);
+async function getData5(){
+  const response5 = await fetch(fivedayURL)
+  const histData5 = await response5.json();
+  console.log(histData5);
 }
-getData();
+getData5();
+
+const fourDaysAgo = Math.floor((Date.now() / 1000)-345600);
+const fourdayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fourDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
+async function getData4(){
+  const response4 = await fetch(fourdayURL)
+  const histData4 = await response4.json();
+  console.log(histData4);
+}
+getData4();
+
+const threeDaysAgo = Math.floor((Date.now() / 1000)-259200);
+const threedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + threeDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
+async function getData3(){
+  const response3 = await fetch(fourdayURL)
+  const histData3 = await response3.json();
+  console.log(histData3);
+}
+getData3();
+
+const twoDaysAgo = Math.floor((Date.now() / 1000)-172800);
+const twodayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + twoDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
+async function getData2(){
+  const response2 = await fetch(fourdayURL)
+  const histData2 = await response2.json();
+  console.log(histData2);
+}
+getData2();
+
+const oneDaysAgo = Math.floor((Date.now() / 1000)-86400);
+const onedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + oneDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
+async function getData1(){
+  const response1 = await fetch(fourdayURL)
+  const histData1 = await response1.json();
+  console.log(histData1);
+}
+getData1();
 
 
 /*

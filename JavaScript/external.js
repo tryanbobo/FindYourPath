@@ -105,24 +105,11 @@ function drawWeather( d ) {
   	document.body.className = 'sunny';
   }
 }
-//need to create a loop that runs through (5) 24hr periods gets json and adds resulting precip to each other.
-/*
-//unix time stamp right now in seconds
-const rightNow = Math.floor(Date.now() / 1000);
-const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
-const key3 = "0a61a8d5e2c8a4d55eeff773162e3649"
-const fivedayURL = "http://history.openweathermap.org/data/2.5/history/city?lat=29.8833&&lon=-97.9414&type=hour&start=" + rightNow + "&end=" + fiveDaysAgo + "&appid=" + key3;
-async function getData(){
-  const response = await fetch(fivedayURL)
-  const histData = await response.json();
-  console.log(histData);
-}
-getData();
-*/
+
 
 //WORKS Provies a json of hourly weather data for (1)24 hr period starting 5 days ago.
 const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
-const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=3991389dd7ddbf7746915724989bb78a"
+const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
 async function getData5(){
   const response5 = await fetch(fivedayURL)
   const histData5 = await response5.json();
@@ -142,7 +129,7 @@ getData4();
 const threeDaysAgo = Math.floor((Date.now() / 1000)-259200);
 const threedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + threeDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
 async function getData3(){
-  const response3 = await fetch(fourdayURL)
+  const response3 = await fetch(threedayURL)
   const histData3 = await response3.json();
   console.log(histData3);
 }
@@ -151,7 +138,7 @@ getData3();
 const twoDaysAgo = Math.floor((Date.now() / 1000)-172800);
 const twodayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + twoDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
 async function getData2(){
-  const response2 = await fetch(fourdayURL)
+  const response2 = await fetch(twodayURL)
   const histData2 = await response2.json();
   console.log(histData2);
 }
@@ -160,7 +147,7 @@ getData2();
 const oneDaysAgo = Math.floor((Date.now() / 1000)-86400);
 const onedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + oneDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
 async function getData1(){
-  const response1 = await fetch(fourdayURL)
+  const response1 = await fetch(onedayURL)
   const histData1 = await response1.json();
   console.log(histData1);
 }

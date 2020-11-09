@@ -113,7 +113,9 @@ const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?l
 async function getData5(){
   const response5 = await fetch(fivedayURL)
   const histData5 = await response5.json();
-  console.log(histData5);
+  for (var i in histData5.hourly){
+    console.log(histData5.hourly[i].humidity);
+  };
 }
 getData5();
 
@@ -122,7 +124,9 @@ const fourdayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?l
 async function getData4(){
   const response4 = await fetch(fourdayURL)
   const histData4 = await response4.json();
-  console.log(histData4);
+  for (var i in histData4.hourly){
+    console.log(histData4.hourly[i].humidity);
+  };
 }
 getData4();
 
@@ -131,7 +135,9 @@ const threedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?
 async function getData3(){
   const response3 = await fetch(threedayURL)
   const histData3 = await response3.json();
-  console.log(histData3);
+  for (var i in histData3.hourly){
+    console.log(histData3.hourly[i].humidity);
+  };
 }
 getData3();
 
@@ -140,7 +146,9 @@ const twodayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?la
 async function getData2(){
   const response2 = await fetch(twodayURL)
   const histData2 = await response2.json();
-  console.log(histData2);
+  for (var i in histData2.hourly){
+    console.log(histData2.hourly[i].humidity);
+  };
 }
 getData2();
 
@@ -149,7 +157,9 @@ const onedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?la
 async function getData1(){
   const response1 = await fetch(onedayURL)
   const histData1 = await response1.json();
-  console.log(histData1);
+  for (var i in histData1.hourly){
+    console.log(histData1.hourly[i].humidity);
+  };
 }
 getData1();
 

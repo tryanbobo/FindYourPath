@@ -89,7 +89,7 @@ view.ui.add(editor, "top-right");
   var myPointsFeatureLayer = new FeatureLayer({
     //*** Replace with your URL ***//
     url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/problem_points/FeatureServer",
-    outFields:["Name", "Problem"],
+    outFields:["Name", "Problem", "Id"],
     popupTemplate:popProblems
   });
   map.add(myPointsFeatureLayer)

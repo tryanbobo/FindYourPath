@@ -108,14 +108,18 @@ function drawWeather( d ) {
 
 
 //WORKS Provies a json of hourly weather data for (1)24 hr period starting 5 days ago.
+
 const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
 const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
 async function getData5(){
   const response5 = await fetch(fivedayURL)
   const histData5 = await response5.json();
+  var total5 = 0
   for (var i in histData5.hourly){
-    console.log(histData5.hourly[i].humidity);
+    total5 += histData5.hourly[i].humidity
   };
+  console.log(total5)
+
 }
 getData5();
 
@@ -124,9 +128,11 @@ const fourdayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?l
 async function getData4(){
   const response4 = await fetch(fourdayURL)
   const histData4 = await response4.json();
+  var total4 = 0
   for (var i in histData4.hourly){
-    console.log(histData4.hourly[i].humidity);
+    total4 += histData4.hourly[i].humidity
   };
+  console.log(total4)
 }
 getData4();
 
@@ -135,9 +141,11 @@ const threedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?
 async function getData3(){
   const response3 = await fetch(threedayURL)
   const histData3 = await response3.json();
+  var total3 = 0
   for (var i in histData3.hourly){
-    console.log(histData3.hourly[i].humidity);
+    total3 += histData3.hourly[i].humidity
   };
+  console.log(total3)
 }
 getData3();
 
@@ -146,9 +154,11 @@ const twodayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?la
 async function getData2(){
   const response2 = await fetch(twodayURL)
   const histData2 = await response2.json();
+  var total2 = 0
   for (var i in histData2.hourly){
-    console.log(histData2.hourly[i].humidity);
+    total2 += histData2.hourly[i].humidity
   };
+  console.log(total2)
 }
 getData2();
 
@@ -157,44 +167,46 @@ const onedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?la
 async function getData1(){
   const response1 = await fetch(onedayURL)
   const histData1 = await response1.json();
+  var total1 = 0
   for (var i in histData1.hourly){
-    console.log(histData1.hourly[i].humidity);
+    total1 += histData1.hourly[i].humidity
   };
+  console.log(total1)
 }
 getData1();
 
 
-/*
-function fiveDayPrecip(){
-  var fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
-  console.log(fiveDaysAgo);
-  var key2 = "3991389dd7ddbf7746915724989bb78a";
-  fetch("http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=" + key2)
-    .then(function(resp2) { return resp2.json() })
-    .then(function(data1)
-      console.log(data1);
-  })
-  .catch(function(){
 
-  })
-  }
-  window.onload = function(){
-    fiveDayPrecip();
-  }
-//Attempt at historical weather data api request.
-/*
-function rainCondition( cityID ) {
-  var key = "4f65582b38d251b7b07af44b50464e8a";
-  var lat = "29.8833";
-  var long = "-97.9414"
-  fetch("http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=" + lat + "&lon=" + long +".9&dt=1586468027&appid=" + key)
-  .then(function(resp) {return resp.json() })
-  .then(funtion(data) {
-    console.log(data);
-  });
-  .catch(function(){
-  });
-}
 
-$.getJSON('http://openweathermap.org/data/2.1/find/city?lat=13.3428&lon=-6.2661&cnt=10&callback=?', function(data) { console.log(data); });
+/*
+function drawRain () {
+  var rainAccumulation5 = 0
+  for (var i in histData5.hourly){
+    rainAccumulation5 += histData5.hourly[i].humidity
+  };
+
+  var rainAccumulation4 = 0
+  for (var i in histData4.hourly){
+    rainAccumulation4 += histData4.hourly[i].humidity
+  };
+
+  var rainAccumulation3 = 0
+  for (var i in histData3.hourly){
+    rainAccumulation3 += histData3.hourly[i].humidity
+  };
+
+  var rainAccumulation2 = 0
+  for (var i in histData2.hourly){
+    rainAccumulation2 += histData2.hourly[i].humidity
+  };
+
+  var rainAccumulation1 = 0
+  for (var i in histData1.hourly){
+    rainAccumulation1 += histData1.hourly[i].humidity
+  };
+
+  const total5DayRain = Sum([rainAccumulation5, rainAccumulation4, rainAccumulation3, rainAccumulation2, rainAccumulation1]);
+  console.log(total5DayRain)
+};
+drawRain();
 */

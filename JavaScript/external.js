@@ -117,7 +117,16 @@ async function getDataForDaysAgo(days) {
     const responseJson = await apiResponse.json()
     var total = 0
     responseJson.hourly.forEach(hour => {
-        total += hour.humidity
+
+        total += hour.rain
+          if (isNaN(total)){
+            total = 0
+          }
+        /*if (total += hour.humidity = "NaN"){
+          total = 0
+        }else(
+          return total += hour.humidity
+        )*/
     });
     console.log(`getDataForDaysAgo(${days}) returns ${total}`)
     return total
@@ -132,12 +141,18 @@ async function getDataSums() {
     return data1 + data2 + data3 + data4 + data5;
 }
 
-function getRainSums(){
 getDataSums().then(result => {
-    console.log(result)
-    return result
-    
+    var totalRainInches = Math.round(parseFloat(result)*25.4);
+    /*var trailConditions = ""
+     if (totalRainInches = "NaN"){
+      totalRainInches = 0;
+    }else if (totalRainInches <= 1){
+      trailConditions = "Trail conditions are..."
+    }else{
+      trailConditions = "It's getting crazy"
+    }*/
+    document.getElementById('precip').innerHTML = "Five Day Precipication Accumulation: " + totalRainInches + "&Prime;"
 
 })
-}
-getRainSums();
+
+console.log( 34 + 4)

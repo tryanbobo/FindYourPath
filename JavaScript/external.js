@@ -118,15 +118,11 @@ async function getDataForDaysAgo(days) {
     var total = 0
     responseJson.hourly.forEach(hour => {
 
-        total += hour.rain
+        total += hour.humidity
           if (isNaN(total)){
             total = 0
           }
-        /*if (total += hour.humidity = "NaN"){
-          total = 0
-        }else(
-          return total += hour.humidity
-        )*/
+
     });
     console.log(`getDataForDaysAgo(${days}) returns ${total}`)
     return total
@@ -142,7 +138,7 @@ async function getDataSums() {
 }
 
 getDataSums().then(result => {
-    var totalRainInches = Math.round(parseFloat(result)*25.4);
+    var totalRainInches = parseFloat((result.toFixed(2))*25.4); //converts to mm to inches
     /*var trailConditions = ""
      if (totalRainInches = "NaN"){
       totalRainInches = 0;

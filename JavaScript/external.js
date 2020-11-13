@@ -30,7 +30,7 @@ require([
       style: "solid",
       outline:{
         style: "solid",
-        color: "grey",
+        color: "blue",
         width: 3
       }
     }
@@ -167,7 +167,7 @@ async function getDataForDaysAgo(days) {
     var total = 0
     responseJson.hourly.forEach(hour => {
 
-        total += hour.humidity
+        total += hour.rain
           if (isNaN(total)){
             total = 0
           }
@@ -188,17 +188,15 @@ async function getDataSums() {
 
 getDataSums().then(result => {
     var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
-      document.getElementById('precip').innerHTML = "Five Day Precipication Accumulation: " + totalRainInches.toFixed(2) + "&Prime;"
-
+      document.getElementById('precip5day').innerHTML = "Five Day Precipication Accumulation:"
+      document.getElementById('precipValue').innerHTML = totalRainInches.toFixed(2) + "&Prime;"
     if (totalRainInches <= 0.50){
       document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"
-  }
-    if (totalRainInches > .5 ){
-      document.getElementById('conditions').innerHTML = "Use best judgement when hiking or mountain biking"
-  }
-    if (totalRainInches > 7 ){
-      document.getElementById('conditions').innerHTML = "Due to heavy rainfall trails should not be used"
-  }
+    } else if (totalRainInches < 3 ){
+      document.getElementById('conditions').innerHTML = "Do to recent rain avtivity, use best judgement when hiking or mountain biking"
+    } else if (totalRainInches > 7 ){
+      document.getElementById('conditions').innerHTML = "Due to heavy rainfall, trails should not be used"
+    }else {
+      document.getElementById('conditions').innerHTML = "Something broke :("
+    }
 });
-
-console.log( 34 + 4)

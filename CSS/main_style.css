@@ -7,9 +7,62 @@ body,
   width: 100%;
 }
 
-#precip {
-  font-size: 0.5em;
+#precip5day {
+    font-size: 0.5em;
 }
+
+#precipValue {
+    margin: 0 auto;
+    font-size: 2.2em;
+    text-align: left;
+    color: #fff;
+    font-size: 2.5em;
+}
+/*
+input {
+  display: none;
+  visibility: hidden;
+}
+label {
+  display: block;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+  color: #666;
+}
+label:hover {
+  color: #000;
+}
+label::before {
+  font-family: Consolas, monaco, monospace;
+  font-weight: bold;
+  font-size: 15px;
+  content: "+";
+
+  width: 20px;
+
+}
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+
+  color: #FFF;
+}
+section {
+  padding: 0 20px;
+}
+#toggle:checked ~ #expand {
+  height: 100%;
+}
+#toggle:checked ~ label::before {
+  content: "-";
+}
+*/
+#weather{
+
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -18,14 +71,15 @@ body {
     /*text-shadow: .1em .1em 0 rgba(0,0,0,0.3);*/
     height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: left;
+
     justify-content: center;
     background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);
 }
 h1 {
     margin: 0 auto;
     font-size: 2.2em;
-    text-align: center;
+    text-align: left;
     color: #fff;
     font-size: 5em;
 }

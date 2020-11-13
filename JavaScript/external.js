@@ -138,7 +138,7 @@ async function getDataSums() {
 }
 
 getDataSums().then(result => {
-    var totalRainInches = parseFloat((result.toFixed(2))*25.4); //converts to mm to inches
+    var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
     /*var trailConditions = ""
      if (totalRainInches = "NaN"){
       totalRainInches = 0;
@@ -147,7 +147,7 @@ getDataSums().then(result => {
     }else{
       trailConditions = "It's getting crazy"
     }*/
-    document.getElementById('precip').innerHTML = "Five Day Precipication Accumulation: " + totalRainInches + "&Prime;"
+    document.getElementById('precip').innerHTML = "Five Day Precipication Accumulation: " + totalRainInches.toFixed(2) + "&Prime;"
 
 })
 

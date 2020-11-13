@@ -19,6 +19,6 @@ THINGS THAT WE NEED TO GET DONE:
   -intro page
   -main page
 -weather api
-  -historical precip data
-  -conditional statement
-  -user survey
+  -historical precip data 100%
+  -conditional statement 90&
+  -user survey ...

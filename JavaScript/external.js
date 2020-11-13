@@ -35,21 +35,71 @@ require([
       }
     }
   };
+
+  var popupParks = {
+    title: "{NAME}",
+    content: [
+      {
+        type: "fields",
+        fieldInfos: [
+          {
+            fieldName: "ADDRESS",
+            label: "Address"
+          },
+          {
+            fieldName: "ACRES",
+            label: "Acres",
+            format: {
+              digitSeparator: true,
+              places: 2
+            }
+          },
+          {
+            fieldName: "HrsOper",
+            label: "Hours of Operation"
+          }
+        ]
+      }
+    ]
+      //"<b>Address:</b> {ADDRESS}<br> <b>Size:</b> {ACRES} acres<br> <b>Hours of Operation:</b> {HrsOper}",
+  };
   //add parks feature layer(line)
   var parksLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
     renderer: parksRenderer,
-    opacity: 0.2
+    opacity: 0.2,
+    outFields: ["ADDRESS", "ACRES", "HrsOper"],
+    popupTemplate: popupParks
   });
   map.add(parksLayer);
 
   var popupTrails = {
     title: "{NAME}",
-
-    content:
-      "<b>Type:</b> {TYPE}<br> <b>Length:</b> {LENGTH_MIL} miles<br> <b>Park:</b> {PARK}"
-  }
+    content: [
+      {
+        type: "fields",
+        fieldInfos: [
+          {
+            fieldName: "TYPE",
+            label: "Type"
+          },
+          {
+            fieldName: "LENGTH_MIL",
+            label: "Length",
+            format: {
+              digitSeparator: true,
+              places: 2
+            }
+          },
+          {
+            fieldName: "PARK",
+            label: "Park"
+          }
+        ]
+      }
+    ]
+  };
 
   //add trails feature layer(line)
   var trailsLayer = new FeatureLayer({

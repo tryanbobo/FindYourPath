@@ -61,7 +61,6 @@ require([
         ]
       }
     ]
-      //"<b>Address:</b> {ADDRESS}<br> <b>Size:</b> {ACRES} acres<br> <b>Hours of Operation:</b> {HrsOper}",
   };
   //add parks feature layer(line)
   var parksLayer = new FeatureLayer({
@@ -189,16 +188,17 @@ async function getDataSums() {
 
 getDataSums().then(result => {
     var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
-    /*var trailConditions = ""
-     if (totalRainInches = "NaN"){
-      totalRainInches = 0;
-    }else if (totalRainInches <= 1){
-      trailConditions = "Trail conditions are..."
-    }else{
-      trailConditions = "It's getting crazy"
-    }*/
-    document.getElementById('precip').innerHTML = "Five Day Precipication Accumulation: " + totalRainInches.toFixed(2) + "&Prime;"
+      document.getElementById('precip').innerHTML = "Five Day Precipication Accumulation: " + totalRainInches.toFixed(2) + "&Prime;"
 
-})
+    if (totalRainInches <= 0.50){
+      document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"
+  }
+    if (totalRainInches > .5 ){
+      document.getElementById('conditions').innerHTML = "Use best judgement when hiking or mountain biking"
+  }
+    if (totalRainInches > 7 ){
+      document.getElementById('conditions').innerHTML = "Due to heavy rainfall trails should not be used"
+  }
+});
 
 console.log( 34 + 4)

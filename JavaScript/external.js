@@ -3,9 +3,12 @@ require([
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
   "esri/widgets/Track",
-  "esri/layers/FeatureLayer"
+  "esri/layers/FeatureLayer",
+  "esri/Graphic",
+  "esri/layers/GraphicsLayer",
+  "esri/widgets/Editor"
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer){
+], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor){
     var map = new Map({
       basemap: "topo-vector",
   });
@@ -117,6 +120,27 @@ require([
   view.when(function () {  //loads tracker function when view loads
     track.start();  //starts tracker
   });
+  //Create the edotor
+  let editor = new Editor({
+  view: view
+  // Pass in any other additional property as needed
+});
+// Add widget to top-right of the view
+view.ui.add(editor, "top-right");
+  //Problem popups
+  var popProblems = {
+    title:"{Problem}" ,
+    content:
+      "<b>Name:</b> {Name}<br> <b>Problem:</b> {Problem}"
+  }
+  //*** ADD ***//
+  var myPointsFeatureLayer = new FeatureLayer({
+    //*** Replace with your URL ***//
+    url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/problem_points/FeatureServer",
+    outFields:["Name", "Problem", "Id"],
+    popupTemplate:popProblems
+  });
+  map.add(myPointsFeatureLayer)
 });
 
 // WeatherBallon ///////////////////////////////////////////////////////////////

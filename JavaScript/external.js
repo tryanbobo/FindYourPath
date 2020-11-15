@@ -3,13 +3,9 @@ require([
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
   "esri/widgets/Track",
-  "esri/layers/FeatureLayer",
-  "esri/Graphic",
-  "esri/layers/GraphicsLayer",
-  "esri/widgets/Editor"
+  "esri/layers/FeatureLayer"
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor){
-
+], function(Map, MapView, BasemapToggle, Track, FeatureLayer){
     var map = new Map({
       basemap: "topo-vector",
   });
@@ -34,26 +30,75 @@ require([
       style: "solid",
       outline:{
         style: "solid",
-        color: "grey",
+        color: "blue",
         width: 3
       }
     }
+  };
+
+  var popupParks = {
+    title: "{NAME}",
+    content: [
+      {
+        type: "fields",
+        fieldInfos: [
+          {
+            fieldName: "ADDRESS",
+            label: "Address"
+          },
+          {
+            fieldName: "ACRES",
+            label: "Acres",
+            format: {
+              digitSeparator: true,
+              places: 2
+            }
+          },
+          {
+            fieldName: "HrsOper",
+            label: "Hours of Operation"
+          }
+        ]
+      }
+    ]
   };
   //add parks feature layer(line)
   var parksLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
     renderer: parksRenderer,
-    opacity: 0.2
+    opacity: 0.2,
+    outFields: ["ADDRESS", "ACRES", "HrsOper"],
+    popupTemplate: popupParks
   });
   map.add(parksLayer);
 
   var popupTrails = {
     title: "{NAME}",
-
-    content:
-      "<b>Type:</b> {TYPE}<br> <b>Length:</b> {LENGTH_MIL} miles<br> <b>Park:</b> {PARK}"
-  }
+    content: [
+      {
+        type: "fields",
+        fieldInfos: [
+          {
+            fieldName: "TYPE",
+            label: "Type"
+          },
+          {
+            fieldName: "LENGTH_MIL",
+            label: "Length",
+            format: {
+              digitSeparator: true,
+              places: 2
+            }
+          },
+          {
+            fieldName: "PARK",
+            label: "Park"
+          }
+        ]
+      }
+    ]
+  };
 
   //add trails feature layer(line)
   var trailsLayer = new FeatureLayer({
@@ -72,27 +117,6 @@ require([
   view.when(function () {  //loads tracker function when view loads
     track.start();  //starts tracker
   });
-  //Create the edotor
-  let editor = new Editor({
-  view: view
-  // Pass in any other additional property as needed
-});
-// Add widget to top-right of the view
-view.ui.add(editor, "top-right");
-  //Problem popups
-  var popProblems = {
-    title:"{Problem}" ,
-    content:
-      "<b>Name:</b> {Name}<br> <b>Problem:</b> {Problem}"
-  }
-  //*** ADD ***//
-  var myPointsFeatureLayer = new FeatureLayer({
-    //*** Replace with your URL ***//
-    url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/problem_points/FeatureServer",
-    outFields:["Name", "Problem", "Id"],
-    popupTemplate:popProblems
-  });
-  map.add(myPointsFeatureLayer)
 });
 
 // WeatherBallon ///////////////////////////////////////////////////////////////
@@ -102,7 +126,7 @@ function weatherBalloon( cityID ) {
   .then(function(resp) { return resp.json() }) //convert data to JSON
   .then(function(data) {
     drawWeather(data);
-    console.log(data);
+    //console.log(data);
   })
   .catch(function() {
     //catch any errors
@@ -131,107 +155,48 @@ function drawWeather( d ) {
   }
 }
 
-
-//WORKS Provies a json of hourly weather data for (1)24 hr period starting 5 days ago.
-
-const fiveDaysAgo = Math.floor((Date.now() / 1000)-432000);
-const fivedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fiveDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
-async function getData5(){
-  const response5 = await fetch(fivedayURL)
-  const histData5 = await response5.json();
-  var total5 = 0
-  for (var i in histData5.hourly){
-    total5 += histData5.hourly[i].humidity
-  };
-  console.log(total5)
-
+function getDaysAgo(days) {
+    return Math.floor((Date.now() / 1000) - (86400 * days))
 }
-getData5();
 
-const fourDaysAgo = Math.floor((Date.now() / 1000)-345600);
-const fourdayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + fourDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
-async function getData4(){
-  const response4 = await fetch(fourdayURL)
-  const histData4 = await response4.json();
-  var total4 = 0
-  for (var i in histData4.hourly){
-    total4 += histData4.hourly[i].humidity
-  };
-  console.log(total4)
+async function getDataForDaysAgo(days) {
+    let daysAgo = getDaysAgo(days)
+    const apiURL = `http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=${daysAgo}&appid=5ffab1cda2c6b2750c78515f41421805`
+    const apiResponse = await fetch(apiURL)
+    const responseJson = await apiResponse.json()
+    var total = 0
+    responseJson.hourly.forEach(hour => {
+
+        total += hour.rain
+          if (isNaN(total)){
+            total = 0
+          }
+
+    });
+    console.log(`getDataForDaysAgo(${days}) returns ${total}`)
+    return total
 }
-getData4();
 
-const threeDaysAgo = Math.floor((Date.now() / 1000)-259200);
-const threedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + threeDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
-async function getData3(){
-  const response3 = await fetch(threedayURL)
-  const histData3 = await response3.json();
-  var total3 = 0
-  for (var i in histData3.hourly){
-    total3 += histData3.hourly[i].humidity
-  };
-  console.log(total3)
+async function getDataSums() {
+    var data1 = await getDataForDaysAgo(5)
+    var data2 = await getDataForDaysAgo(4)
+    var data3 = await getDataForDaysAgo(3)
+    var data4 = await getDataForDaysAgo(2)
+    var data5 = await getDataForDaysAgo(1)
+    return data1 + data2 + data3 + data4 + data5;
 }
-getData3();
 
-const twoDaysAgo = Math.floor((Date.now() / 1000)-172800);
-const twodayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + twoDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
-async function getData2(){
-  const response2 = await fetch(twodayURL)
-  const histData2 = await response2.json();
-  var total2 = 0
-  for (var i in histData2.hourly){
-    total2 += histData2.hourly[i].humidity
-  };
-  console.log(total2)
-}
-getData2();
-
-const oneDaysAgo = Math.floor((Date.now() / 1000)-86400);
-const onedayURL = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=" + oneDaysAgo +"&appid=5ffab1cda2c6b2750c78515f41421805"
-async function getData1(){
-  const response1 = await fetch(onedayURL)
-  const histData1 = await response1.json();
-  var total1 = 0
-  for (var i in histData1.hourly){
-    total1 += histData1.hourly[i].humidity
-  };
-  console.log(total1)
-}
-getData1();
-
-
-
-
-/*
-function drawRain () {
-  var rainAccumulation5 = 0
-  for (var i in histData5.hourly){
-    rainAccumulation5 += histData5.hourly[i].humidity
-  };
-
-  var rainAccumulation4 = 0
-  for (var i in histData4.hourly){
-    rainAccumulation4 += histData4.hourly[i].humidity
-  };
-
-  var rainAccumulation3 = 0
-  for (var i in histData3.hourly){
-    rainAccumulation3 += histData3.hourly[i].humidity
-  };
-
-  var rainAccumulation2 = 0
-  for (var i in histData2.hourly){
-    rainAccumulation2 += histData2.hourly[i].humidity
-  };
-
-  var rainAccumulation1 = 0
-  for (var i in histData1.hourly){
-    rainAccumulation1 += histData1.hourly[i].humidity
-  };
-
-  const total5DayRain = Sum([rainAccumulation5, rainAccumulation4, rainAccumulation3, rainAccumulation2, rainAccumulation1]);
-  console.log(total5DayRain)
-};
-drawRain();
-*/
+getDataSums().then(result => {
+    var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
+      document.getElementById('precip5day').innerHTML = "Five Day Precipication Accumulation:"
+      document.getElementById('precipValue').innerHTML = totalRainInches.toFixed(2) + "&Prime;"
+    if (totalRainInches <= 0.50){
+      document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"
+    } else if (totalRainInches < 3 ){
+      document.getElementById('conditions').innerHTML = "Do to recent rain avtivity, use best judgement when hiking or mountain biking"
+    } else if (totalRainInches > 7 ){
+      document.getElementById('conditions').innerHTML = "Due to heavy rainfall, trails should not be used"
+    }else {
+      document.getElementById('conditions').innerHTML = "Something broke :("
+    }
+});

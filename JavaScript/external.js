@@ -129,15 +129,15 @@ require([
 view.ui.add(editor, "top-right");
   //Problem popups
   var popProblems = {
-    title:"{Problem}" ,
+    title:"{Trail Issue}" ,
     content:
-      "<b>Name:</b> {Name}<br> <b>Problem:</b> {Problem}"
+      "<b>Trail Issue:</b> {Trail Issue}<br> <b>Status:</b> {Status}<br> <b>Comments:</b> {Comments}<br> <b>Priority:</b> {Priority}"
   }
   //*** ADD ***//
   var myPointsFeatureLayer = new FeatureLayer({
     //*** Replace with your URL ***//
-    url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/problem_points/FeatureServer",
-    outFields:["Name", "Problem", "Id"],
+    url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Conditions/FeatureServer",
+    outFields:["Trail Issue", "Status", "Comments", "Priority"],
     popupTemplate:popProblems
   });
   map.add(myPointsFeatureLayer)

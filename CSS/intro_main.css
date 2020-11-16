@@ -62,7 +62,7 @@
 				color: #FFF;
 				text-decoration: none;
 				line-height: 1rem;
-				
+
 			}
 
 			#header > .MAINTITLE span {
@@ -149,12 +149,12 @@
 		/* DROPDOWN MENU */
 		/* Dropdown Button */
 		.searchbox.dropbtn {
-		  background-color: #fe9929;
-		  color: white;
+		  background-color: #636363;
+		  color: #fe9929;
 		  padding: 16px;
 		  font-size: 16px;
-			border-radius: 7px;
-			border: 3px solid #ffff;
+			border-radius: 2px;
+			border: 2px solid #252525;
 
 		}
 
@@ -168,28 +168,29 @@
 		.searchbox.dropdown-content {
 		  display: none;
 		  position: absolute;
-		  background-color: #f1f1f1;
+		  background-color: #636363;
 		  min-width: 160px;
+			opacity: .9;
 		  box-shadow: 0px 8px 16px 0px #0000;
 		  z-index: 1;
 		}
 
 		/* Links inside the dropdown */
 		.searchbox.dropdown-content a {
-		  color: black;
+		  color: #fe9929;
 		  padding: 12px 16px;
 		  text-decoration: none;
 		  display: block;
 		}
 
 		/* Change color of dropdown links on hover */
-		.searchbox.dropdown-content a:hover {background-color: #fee391;}
+		.searchbox.dropdown-content a:hover {background-color: #252525;}
 
 		/* Show the dropdown menu on hover */
 		.searchbox.dropdown:hover .dropdown-content {display: block;}
 
 		/* Change the background color of the dropdown button when the dropdown content is shown */
-		.searchbox.dropdown:hover .dropbtn {background-color: #fec44f;}
+		.searchbox.dropdown:hover .dropbtn {background-color: #252525;}
 
 /* FOOTER */
 

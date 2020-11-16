@@ -6,9 +6,11 @@ require([
   "esri/layers/FeatureLayer",
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
-  "esri/widgets/Editor"
+  "esri/widgets/Editor",
+  "esri/widgets/Expand",
+  "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor){
+], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
     var map = new Map({
       basemap: "topo-vector",
   });
@@ -22,7 +24,7 @@ require([
     view: view,
     nextBasemap: "satellite"
   });
-  view.ui.add(basemapToggle, "bottom-right");
+  //view.ui.add(basemapToggle, "bottom-right");
 
   //parks renderer
   var parksRenderer = {
@@ -126,7 +128,7 @@ require([
   // Pass in any other additional property as needed
 });
 // Add widget to top-right of the view
-view.ui.add(editor, "top-right");
+//view.ui.add(editor, "top-right");
   //Problem popups
   var popProblems = {
     title:"{HazardType}" ,
@@ -141,7 +143,22 @@ view.ui.add(editor, "top-right");
     popupTemplate:popProblems
   });
   map.add(myPointsFeatureLayer)
+
+  var basemapExpand = new Expand({
+    view: view,
+    content: basemapToggle,
+    expandIconClass: "esri-icon-basemap",
+
+  });
+  var editorExpand = new Expand({
+    view: view,
+    content: editor,
+    expandIconClass: "esri-icon-edit"
+  });
+
+  view.ui.add([basemapExpand, editorExpand], "top-right");
 });
+
 
 // WeatherBallon ///////////////////////////////////////////////////////////////
 function weatherBalloon( cityID ) {

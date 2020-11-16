@@ -148,12 +148,14 @@ require([
     view: view,
     content: basemapToggle,
     expandIconClass: "esri-icon-basemap",
+    mode: "floating"
 
   });
   var editorExpand = new Expand({
     view: view,
     content: editor,
-    expandIconClass: "esri-icon-edit"
+    expandIconClass: "esri-icon-edit",
+    mode: "floating"
   });
 
   view.ui.add([basemapExpand, editorExpand], "top-right");

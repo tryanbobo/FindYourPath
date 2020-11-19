@@ -1,11 +1,4 @@
-html,
-body,
-#viewDiv {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  width: 100%;
-}
+
 
 #precip5day {
     font-size: 0.5em;
@@ -19,46 +12,8 @@ body,
     font-size: 2.5em;
 }
 
-input {
-  display: none;
-  visibility: hidden;
-}
-label {
-  display: block;
-  padding: 0.5em;
-  text-align: center;
-  border-bottom: 1px solid #CCC;
-  color: #666;
-}
-label:hover {
-  color: #000;
-}
-label::before {
-  font-family: Consolas, monaco, monospace;
-  font-weight: bold;
-  font-size: 15px;
-  content: "+";
 
-  width: 20px;
 
-}
-#expand {
-  height: 0px;
-  overflow: hidden;
-  transition: height 0.5s;
-
-  color: #FFF;
-}
-section {
-  padding: 0 20px;
-}
-#toggle:checked ~ #expand {
-  height: 100%;
-}
-#toggle:checked ~ label::before {
-  content: "-";
-}
-*/
 #weather{
 
 }
@@ -68,7 +23,7 @@ body {
     font-weight: 400;
     font-size: 1.3em;
     color: #fff;
-    /*text-shadow: .1em .1em 0 rgba(0,0,0,0.3);*/
+    text-shadow: .1em .1em 0 rgba(0,0,0,0.3);
     height: 100vh;
     display: flex;
     align-items: left;
@@ -93,16 +48,16 @@ body.rainy {
     background-image: linear-gradient(to right top, #637c7b, #718e8c, #7ea09e, #8db2b0, #9bc5c3);
 }
 
-<style>
-  html,
-  body,
-  #viewDiv {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
+/*
+html,
+body,
 
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
   .panel-container {
     position: relative;
     width: 100%;
@@ -150,3 +105,4 @@ body.rainy {
     color: orange;
     background-color: rgba(0, 0, 0, 0.75);
   }
+*/

@@ -106,6 +106,7 @@ require([
   };
 
   //add trails feature layer(line)
+
   var trailsLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer",
@@ -114,6 +115,81 @@ require([
   });
   map.add(trailsLayer);
 
+  const listNode = document.getElementById("trail_graphics");
+
+  let graphics;
+
+  view.whenLayerView(trailsLayer).then(function (layerView) {
+    layerView.watch("updating", function (value) {
+      if (!value) {
+        // wait for the layer view to finish updating
+
+        // query all the features available for drawing.
+        layerView
+          .queryFeatures({
+            geometry: view.extent,
+            returnGeometry: true,
+            orderByFields: ["PARK"]
+          })
+          .then(function (results) {
+            graphics = results.features;
+
+            const fragment = document.createDocumentFragment();
+
+            graphics.forEach(function (result, index) {
+              const attributes = result.attributes;
+              const name = attributes.NAME;
+
+              // Create a list zip codes in NY
+              const li = document.createElement("li");
+              li.classList.add("panel-result");
+              li.tabIndex = 0;
+              li.setAttribute("data-result-id", index);
+              li.textContent = name;
+
+              fragment.appendChild(li);
+            });
+            // Empty the current list
+            listNode.innerHTML = "";
+            listNode.appendChild(fragment);
+          })
+          .catch(function (error) {
+            console.error("query failed: ", error);
+          });
+      }
+    });
+  });
+
+  // listen to click event on the zip code list
+  listNode.addEventListener("click", onListClickHandler);
+
+  function onListClickHandler(event) {
+    const target = event.target;
+    const resultId = target.getAttribute("data-result-id");
+
+    // get the graphic corresponding to the clicked zip code
+    const result =
+      resultId && graphics && graphics[parseInt(resultId, 10)];
+
+    if (result) {
+      // open the popup at the centroid of zip code polygon
+      // and set the popup's features which will populate popup content and title.
+
+      view
+        .goTo(result.geometry.extent.expand(2))
+        .then(function () {
+          view.popup.open({
+            features: [result],
+            location: result.geometry.centroid
+          });
+        })
+        .catch(function (error) {
+          if (error.name != "AbortError") {
+            console.error(error);
+          }
+        });
+    }
+  }
 
   var track = new Track({
     view: view  //assigns tracker to current map view
@@ -158,7 +234,7 @@ require([
     mode: "floating"
   });
 
-  view.ui.add([basemapExpand, editorExpand], "top-right");
+  view.ui.add([basemapExpand, editorExpand], "bottom-left");
 });
 
 

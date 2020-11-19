@@ -3,11 +3,16 @@ require([
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
   "esri/widgets/Track",
-  "esri/layers/FeatureLayer"
+  "esri/layers/FeatureLayer",
+  "esri/tasks/RouteTask",
+  "esri/tasks/support/RouteParameters",
+  "esri/tasks/support/FeatureSet",
+  "esri/Graphic",
+  "esri/widgets/Directions",
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer){
+], function(Map, MapView, BasemapToggle, Track, FeatureLayer, RouteTask, RouteParameters, FeatureSet, Graphic, Directions){
     var map = new Map({
-      basemap: "topo-vector",
+      basemap: "streets-navigation-vector",
   });
   var view = new MapView({
     container: "viewDiv",
@@ -20,6 +25,113 @@ require([
     nextBasemap: "satellite"
   });
   view.ui.add(basemapToggle, "bottom-right");
+
+// RouteTask
+
+var routeTask = new RouteTask({
+         url: "https://utility.arcgis.com/usrsvcs/appservices/io4S0BRoPlMFNkO6/rest/services/World/Route/NAServer/Route_World/solve"
+      });
+
+      view.on("click", function(event){
+            if (view.graphics.length === 0) {
+              addGraphic("start", event.mapPoint);
+            } else if (view.graphics.length === 1) {
+              addGraphic("finish", event.mapPoint);
+              getRoute();
+            } else {
+              view.graphics.removeAll();
+              addGraphic("start",event.mapPoint);
+            }
+          });
+
+          function addGraphic(type, point) {
+          var graphic = new Graphic({
+            symbol: {
+              type: "simple-marker",
+              color: (type === "start") ? "white" : "black",
+              size: "8px"
+            },
+            geometry: point
+          });
+          view.graphics.add(graphic);
+        }
+
+        function getRoute() {
+
+        var routeParams = new RouteParameters({
+          stops: new FeatureSet({
+            features: view.graphics.toArray()
+          }),
+          returnDirections: true
+        });
+
+        routeTask.solve(routeParams).then(function(data) {
+
+          data.routeResults.forEach(function(result) {
+            result.route.symbol = {
+              type: "simple-line",
+              color: [5, 150, 255],
+              width: 3
+            };
+            view.graphics.add(result.route);
+          });
+        });
+      }
+
+      function getRoute() {
+
+        var routeParams = new RouteParameters({
+          stops: new FeatureSet({
+            features: view.graphics.toArray()
+          }),
+          returnDirections: true
+        });
+
+        routeTask.solve(routeParams).then(function(data) {
+
+          data.routeResults.forEach(function(result) {
+            result.route.symbol = {
+              type: "simple-line",
+              color: [5, 150, 255],
+              width: 3
+            };
+            view.graphics.add(result.route);
+          });
+
+
+
+          var directions = document.createElement("ol");
+          directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
+          directions.style.marginTop = 0;
+          directions.style.paddingTop = "15px";
+
+
+
+          var features = data.routeResults[0].directions.features;
+          features.forEach(function(result,i){
+            var direction = document.createElement("li");
+            direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
+            directions.appendChild(direction);
+          });
+
+
+
+          view.ui.empty("top-right");
+          view.ui.add(directions, "top-right");
+        });
+      }
+
+
+      var directionsWidget = new Directions({
+        view: view,
+        routeServiceUrl:"https://utility.arcgis.com/usrsvcs/appservices/io4S0BRoPlMFNkO6/rest/services/World/Route/NAServer/Route_World"
+      });
+
+      view.ui.add(directionsWidget, {
+        position: "top-right",
+        index: 2
+      });
+
 
   //parks renderer
   var parksRenderer = {

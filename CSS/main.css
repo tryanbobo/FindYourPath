@@ -82,7 +82,7 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;} 
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 /* HEADER */
 	#header {
@@ -184,6 +184,16 @@
 			border-radius: 4px 4px 0 0;
 			opacity: 0.66; /* OPACITY FOR SEARCH BOX */
 		}
+
+/* Directions */
+
+.esri-view .esri-directions {
+      position: fixed;
+      right: 15px;
+    }
+    .esri-view .esri-component.esri-attribution {
+      position: fixed;
+    }
 
 
 /* FOOTER */

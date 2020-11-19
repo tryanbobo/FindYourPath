@@ -245,7 +245,7 @@ function weatherBalloon( cityID ) {
   .then(function(resp) { return resp.json() }) //convert data to JSON
   .then(function(data) {
     drawWeather(data);
-    //console.log(data);
+    console.log(data);
   })
   .catch(function() {
     //catch any errors
@@ -266,11 +266,11 @@ function drawWeather( d ) {
 	document.getElementById('location').innerHTML = d.name;
 
 	if( description.indexOf('rain') > 0 ) {
-  	document.weather.className = 'rainy';
+  	document.getElementById("weather").className = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	document.weather.className = 'cloudy';
+  	document.getElementById("weather").className = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	document.weather.className = 'sunny';
+  	document.getElementById("weather").className = 'sunny';
   }
 }
 
@@ -307,7 +307,7 @@ async function getDataSums() {
 
 getDataSums().then(result => {
     var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
-      document.getElementById('precip5day').innerHTML = "Five Day Precipication Accumulation:"
+      document.getElementById('precip5day').innerHTML = "Five Day Rain Totals:"
       document.getElementById('precipValue').innerHTML = totalRainInches.toFixed(2) + "&Prime;"
     if (totalRainInches <= 0.50){
       document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"

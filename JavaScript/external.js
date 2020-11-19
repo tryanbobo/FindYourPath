@@ -266,11 +266,11 @@ function drawWeather( d ) {
 	document.getElementById('location').innerHTML = d.name;
 
 	if( description.indexOf('rain') > 0 ) {
-  	document.body.className = 'rainy';
+  	document.weather.className = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	document.body.className = 'cloudy';
+  	document.weather.className = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	document.body.className = 'sunny';
+  	document.weather.className = 'sunny';
   }
 }
 

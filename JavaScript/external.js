@@ -207,7 +207,7 @@ require([
 //view.ui.add(editor, "top-right");
   //Problem popups
   var popProblems = {
-    title:"{HazardType}" ,
+    title:"Trail Report" ,
     content:
       "<b>Trail Issue:</b> {HazardType}<br> <b>Status:</b> {Status}<br> <b>Comments:</b> {Description}<br> <b>Priority:</b> {Priority}"
   }

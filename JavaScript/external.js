@@ -262,15 +262,15 @@ function drawWeather( d ) {
 	var description = d.weather[0].description;
 
 	document.getElementById('description').innerHTML = description;
-	document.getElementById('temp').innerHTML = fahrenheit + '&deg;';
-	document.getElementById('location').innerHTML = d.name;
+	document.getElementById('temp').innerHTML = fahrenheit + '&deg; F';
+	document.getElementById('location').innerHTML = d.name + ', TX';
 
 	if( description.indexOf('rain') > 0 ) {
-  	document.getElementById("weather").className = 'rainy';
+  	document.getElementsByClassName("container").className = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	document.getElementById("weather").className = 'cloudy';
+  	document.getElementsByClassName("container").className = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	document.getElementById("weather").className = 'sunny';
+  	document.getElementsByClassName("container").className = 'sunny';
   }
 }
 
@@ -319,3 +319,19 @@ getDataSums().then(result => {
       document.getElementById('conditions').innerHTML = "Something broke :("
     }
 });
+/*
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+*/

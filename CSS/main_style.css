@@ -12,9 +12,7 @@
     font-size: 2.5em;
 }
 
-
-
-#weather{
+.container{
   font-family: 'Montserrat', sans-serif;
   font-weight: 150;
   font-size: 0.85em;
@@ -22,7 +20,7 @@
   color: #fff;
   /*text-shadow: .1em .1em 0 rgba(0,0,0,0.3);*/
   border-radius: 25px;
-  opacity: 0.7;
+
   width:170px;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -54,62 +52,35 @@ h1 {
 #weather.rainy {
     background-image: linear-gradient(to right top, #637c7b, #718e8c, #7ea09e, #8db2b0, #9bc5c3);
 }
-
 /*
-html,
-body,
-
-#viewDiv {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  width: 100%;
+.collapsible {
+  z-index: 11;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 3px;
+  left: 75px;
+  z-index: 10;
+  font-size: 15px;
 }
-  .panel-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
 
-  .panel-side {
-    padding: 2px;
-    box-sizing: border-box;
-    width: 300px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.6);
-    overflow: auto;
-    z-index: 60;
-  }
+.active, .collapsible:hover {
+  z-index: 11;
+  background-color: #ccc;
+}
 
-  .panel-side h3 {
-    padding: 0 20px;
-    margin: 20px 0;
-  }
 
-  .panel-side ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .panel-side li {
-    list-style: none;
-    padding: 10px 20px;
-  }
-
-  .panel-result {
-    cursor: pointer;
-    margin: 2px 0;
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-
-  .panel-result:hover,
-  .panel-result:focus {
-    color: orange;
-    background-color: rgba(0, 0, 0, 0.75);
-  }
+.content {
+  z-index: 11;
+  padding: 0 18px;
+  display: none;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
 */

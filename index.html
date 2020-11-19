@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css"/>
   <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/css/main.css">
 
+<!--bootstrap links-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
   <script src="https://js.arcgis.com/4.17/"></script>
   <script src="JavaScript/external.js"></script>
   <style>
@@ -70,20 +75,28 @@
       color: orange;
       background-color: rgba(0, 0, 0, 0.75);
     }
+
   </style>
 </head>
 
 <body>
   <!--weather balloon-->
-
+  <!--<button type="button" class="collapsible">Open Collapsible</button>
+  <div class="content">-->
+  <div class="container"
+    <a href="#demo" class ="btn btn-indo" data-toggle="collapse"> <h1 id="temp"></h1></a>
+    <div id="demo" class="collapse">
   <div id="weather">
-    <div id="description"></div>
-    <h1 id="temp"></h1>
-    <div id="location">TX</div><br>
-    <div id="precip5day"></div>
-    <div id="precipValue"></div>
-    <div id="conditions"></div>
+      <div id="description"></div>
+      <h1 id="temp"></h1>
+      <div id="location"></div><br>
+      <div id="precip5day"></div>
+      <div id="precipValue"></div>
+      <div id="conditions"></div>
+    </div>
   </div>
+</div>
+  <!--</div>-->
      <div class="panel-container">
        <div class="panel-side esri-widget">
          <h3>San Marcos Trails</h3>

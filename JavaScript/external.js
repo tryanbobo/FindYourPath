@@ -266,11 +266,11 @@ function drawWeather( d ) {
 	document.getElementById('location').innerHTML = d.name + ', TX';
 
 	if( description.indexOf('rain') > 0 ) {
-  	   document.getElementById("style-cont").innerHTML = 'rainy';
+  	   document.getElementsByClassName("container").innerHTML = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	   document.getElementById("style-cont").innerHTML = 'cloudy';
+  	   document.getElementsByClassName("container").innerHTML = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	   document.getElementsById("style-cont").innerHTML = 'sunny';
+  	   document.getElementsByClassName("container").innerHTML = 'sunny';
   }
 }
 function getDaysAgo(days) {

@@ -266,14 +266,13 @@ function drawWeather( d ) {
 	document.getElementById('location').innerHTML = d.name + ', TX';
 
 	if( description.indexOf('rain') > 0 ) {
-  	document.getElementsByClassName("container").className = 'rainy';
+  	   document.getElementById("style-cont").innerHTML = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	document.getElementsByClassName("container").className = 'cloudy';
+  	   document.getElementById("style-cont").innerHTML = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	document.getElementsByClassName("container").className = 'sunny';
+  	   document.getElementsById("style-cont").innerHTML = 'sunny';
   }
 }
-
 function getDaysAgo(days) {
     return Math.floor((Date.now() / 1000) - (86400 * days))
 }

@@ -8,6 +8,7 @@ require([
   "esri/layers/GraphicsLayer",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
+  "esri/widgets/Legend",
   "dojo/domReady!"
 
 ], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
@@ -25,13 +26,13 @@ require([
     nextBasemap: "satellite"
   });
   //view.ui.add(basemapToggle, "bottom-right");
-  var parksDiff = new FeatureLayer({
+  var trailDiff = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Difficulty_Rating/FeatureServer",
-    outFields: ["ADDRESS", "ACRES", "HrsOper"],
-    popupTemplate: popupParks
+
+
   });
-  map.add(parksLayer);
+  map.add(trailDiff, 1);
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -77,9 +78,12 @@ require([
   var parksLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
-
+    renderer: parksRenderer,
+    opacity: 0.2,
+    outFields: ["ADDRESS", "ACRES", "HrsOper"],
+    popupTemplate: popupParks
   });
-  map.add(parksDiff);
+  map.add(parksLayer);
 
   var popupTrails = {
     title: "{NAME}",
@@ -116,7 +120,7 @@ require([
       outFields: ["TYPE", "LENGTH_MIL", "PARK"],
       popupTemplate: popupTrails
   });
-  map.add(trailsLayer);
+  map.add(trailsLayer, 0);
 
   const listNode = document.getElementById("trail_graphics");
 
@@ -193,6 +197,17 @@ require([
         });
     }
   }
+/*
+  var legend = new Legend({
+    view: view,
+    layerInfos: [
+      {
+      layer: trailDiff,
+      title: "Trail Difficulty"
+    }
+  ]
+  });
+*/
 
   var track = new Track({
     view: view  //assigns tracker to current map view
@@ -237,7 +252,14 @@ require([
     mode: "floating"
   });
 
-  view.ui.add([basemapExpand, editorExpand], "bottom-left");
+  var legendExpand = new Expand({
+    view: view,
+    content: trailDiff,
+    expandIconClass: "esri-icon-legend",
+    mode: "floating"
+  });
+
+  view.ui.add([editorExpand, basemapExpand], "bottom-left");
 });
 
 

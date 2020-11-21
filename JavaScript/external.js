@@ -25,7 +25,13 @@ require([
     nextBasemap: "satellite"
   });
   //view.ui.add(basemapToggle, "bottom-right");
-
+  var parksDiff = new FeatureLayer({
+    url:
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Difficulty_Rating/FeatureServer",
+    outFields: ["ADDRESS", "ACRES", "HrsOper"],
+    popupTemplate: popupParks
+  });
+  map.add(parksLayer);
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -71,12 +77,9 @@ require([
   var parksLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
-    renderer: parksRenderer,
-    opacity: 0.2,
-    outFields: ["ADDRESS", "ACRES", "HrsOper"],
-    popupTemplate: popupParks
+
   });
-  map.add(parksLayer);
+  map.add(parksDiff);
 
   var popupTrails = {
     title: "{NAME}",

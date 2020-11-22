@@ -3,9 +3,15 @@ require([
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
   "esri/widgets/Track",
-  "esri/layers/FeatureLayer"
+  "esri/layers/FeatureLayer",
+  "esri/Graphic",
+  "esri/layers/GraphicsLayer",
+  "esri/widgets/Editor",
+  "esri/widgets/Expand",
+  "esri/widgets/Legend",
+  "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer){
+], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
     var map = new Map({
       basemap: "topo-vector",
   });
@@ -19,8 +25,14 @@ require([
     view: view,
     nextBasemap: "satellite"
   });
-  view.ui.add(basemapToggle, "bottom-right");
+  //view.ui.add(basemapToggle, "bottom-right");
+  var trailDiff = new FeatureLayer({
+    url:
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Difficulty_Rating/FeatureServer",
 
+
+  });
+  map.add(trailDiff, 1);
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -101,14 +113,101 @@ require([
   };
 
   //add trails feature layer(line)
+
   var trailsLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer",
       outFields: ["TYPE", "LENGTH_MIL", "PARK"],
       popupTemplate: popupTrails
   });
-  map.add(trailsLayer);
+  map.add(trailsLayer, 0);
 
+  const listNode = document.getElementById("trail_graphics");
+
+  let graphics;
+
+  view.whenLayerView(trailsLayer).then(function (layerView) {
+    layerView.watch("updating", function (value) {
+      if (!value) {
+        // wait for the layer view to finish updating
+
+        // query all the features available for drawing.
+        layerView
+          .queryFeatures({
+            geometry: view.extent,
+            returnGeometry: true,
+            orderByFields: ["PARK"]
+          })
+          .then(function (results) {
+            graphics = results.features;
+
+            const fragment = document.createDocumentFragment();
+
+            graphics.forEach(function (result, index) {
+              const attributes = result.attributes;
+              const name = attributes.NAME;
+
+              // Create a list zip codes in NY
+              const li = document.createElement("li");
+              li.classList.add("panel-result");
+              li.tabIndex = 0;
+              li.setAttribute("data-result-id", index);
+              li.textContent = name;
+
+              fragment.appendChild(li);
+            });
+            // Empty the current list
+            listNode.innerHTML = "";
+            listNode.appendChild(fragment);
+          })
+          .catch(function (error) {
+            console.error("query failed: ", error);
+          });
+      }
+    });
+  });
+
+  // listen to click event on the zip code list
+  listNode.addEventListener("click", onListClickHandler);
+
+  function onListClickHandler(event) {
+    const target = event.target;
+    const resultId = target.getAttribute("data-result-id");
+
+    // get the graphic corresponding to the clicked zip code
+    const result =
+      resultId && graphics && graphics[parseInt(resultId, 10)];
+
+    if (result) {
+      // open the popup at the centroid of zip code polygon
+      // and set the popup's features which will populate popup content and title.
+
+      view
+        .goTo(result.geometry.extent.expand(2))
+        .then(function () {
+          view.popup.open({
+            features: [result],
+            location: result.geometry.centroid
+          });
+        })
+        .catch(function (error) {
+          if (error.name != "AbortError") {
+            console.error(error);
+          }
+        });
+    }
+  }
+/*
+  var legend = new Legend({
+    view: view,
+    layerInfos: [
+      {
+      layer: trailDiff,
+      title: "Trail Difficulty"
+    }
+  ]
+  });
+*/
 
   var track = new Track({
     view: view  //assigns tracker to current map view
@@ -117,7 +216,52 @@ require([
   view.when(function () {  //loads tracker function when view loads
     track.start();  //starts tracker
   });
+  //Create the edotor
+  let editor = new Editor({
+  view: view
+  // Pass in any other additional property as needed
 });
+// Add widget to top-right of the view
+//view.ui.add(editor, "top-right");
+  //Problem popups
+  var popProblems = {
+    title:"Trail Report" ,
+    content:
+      "<b>Trail Issue:</b> {HazardType}<br> <b>Status:</b> {Status}<br> <b>Comments:</b> {Description}<br> <b>Priority:</b> {Priority}"
+  }
+  //*** ADD ***//
+  var myPointsFeatureLayer = new FeatureLayer({
+    //*** Replace with your URL ***//
+    url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Conditions/FeatureServer",
+    outFields:["HazardType", "Status", "Description", "Priority"],
+    popupTemplate:popProblems
+  });
+  map.add(myPointsFeatureLayer)
+
+  var basemapExpand = new Expand({
+    view: view,
+    content: basemapToggle,
+    expandIconClass: "esri-icon-basemap",
+    mode: "floating"
+
+  });
+  var editorExpand = new Expand({
+    view: view,
+    content: editor,
+    expandIconClass: "esri-icon-edit",
+    mode: "floating"
+  });
+
+  var legendExpand = new Expand({
+    view: view,
+    content: trailDiff,
+    expandIconClass: "esri-icon-legend",
+    mode: "floating"
+  });
+
+  view.ui.add([editorExpand, basemapExpand], "bottom-left");
+});
+
 
 // WeatherBallon ///////////////////////////////////////////////////////////////
 function weatherBalloon( cityID ) {
@@ -143,16 +287,19 @@ function drawWeather( d ) {
 	var description = d.weather[0].description;
 
 	document.getElementById('description').innerHTML = description;
-	document.getElementById('temp').innerHTML = fahrenheit + '&deg;';
-	document.getElementById('location').innerHTML = d.name;
+	document.getElementById('temp').innerHTML = fahrenheit + '&deg; F';
+	document.getElementById('location').innerHTML = d.name + ', TX';
 
 	if( description.indexOf('rain') > 0 ) {
-  	document.body.className = 'rainy';
+  	   document.getElementsByClassName("container").innerHTML = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	document.body.className = 'cloudy';
+  	   document.getElementsByClassName("container").innerHTML = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	document.body.className = 'sunny';
+  	   document.getElementsByClassName("container").innerHTML = 'sunny';
   }
+}
+function getDaysAgo(days) {
+    return Math.floor((Date.now() / 1000) - (86400 * days))
 }
 
 function getDaysAgo(days) {

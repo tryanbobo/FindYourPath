@@ -18,6 +18,7 @@ THINGS THAT WE NEED TO GET DONE:
 -page design
   -intro page
   -main page
+    -Collapsible content: https://www.w3schools.com/howto/howto_js_collapsible.asp
 -weather api
   -historical precip data 100%
   -conditional statement 90&

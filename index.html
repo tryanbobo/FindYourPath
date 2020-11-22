@@ -1,30 +1,165 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
   <title>Current Weather SM map</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
   <link rel="stylesheet" href="CSS/main_style.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css"/>
   <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/css/main.css">
+
+<!--bootstrap links-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <script src="https://js.arcgis.com/4.17/"></script>
   <script src="JavaScript/external.js"></script>
+  <style>
 
+
+  #precip5day {
+      font-size: .9em;
+  }
+
+  #precipValue {
+      margin: 0 auto;
+      font-size: 2.2em;
+      text-align: center;
+      color: #fff;
+      font-size: 2.5em;
+  }
+  .container{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 150;
+    font-size: 0.85em;
+    text-align: center;
+    color: #fff;
+    border-radius: 25px;
+    max-width: 160px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 3px;
+    left: 75px;
+    z-index: 10;
+    justify-content: center;
+    background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);
+  }
+
+/*  body {
+    background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);
+  }*/
+  h1 {
+      margin: 0 auto;
+
+      text-align: cetner;
+      color: #fff;
+      font-size: 2em;
+  }
+  .container.sunny {
+      background-image: linear-gradient(to right top, #ff4e50, #ff713e, #ff932b, #ffb41d, #f9d423);
+  }
+  .container.cloudy {
+      background-image: linear-gradient(to right top, #63747c, #71858e, #7f96a0, #8da8b2, #9bbac5);
+  }
+  .container.rainy {
+      background-image: linear-gradient(to right top, #637c7b, #718e8c, #7ea09e, #8db2b0, #9bc5c3);
+  }
+  html,
+  body,
+
+  #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+    .panel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .panel-side {
+      padding: 2px;
+      box-sizing: border-box;
+      width: 300px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.6);
+      overflow: auto;
+      z-index: 60;
+    }
+
+    .panel-side h3 {
+      padding: 0 20px;
+      margin: 20px 0;
+    }
+
+    .panel-side ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .panel-side li {
+      list-style: none;
+      padding: 10px 20px;
+    }
+
+    .panel-result {
+      cursor: pointer;
+      margin: 2px 0;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .panel-result:hover,
+    .panel-result:focus {
+      color: orange;
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+
+  </style>
 </head>
 
 <body>
   <!--weather balloon-->
-  <div id="weather">
-    <div id="description"></div>
-    <h1 id="temp"></h1>
-    <div id="location"></div>
-    <div id="precip"></div>
+  <!--<button type="button" class="collapsible">Open Collapsible</button>
+  <div class="content">-->
+
+  <div class="container">
+    <a href="#demo" class ="btn btn-indo" data-toggle="collapse">
+      <h1 id="temp"></h1>
+    </a>
+    <div id="demo" class="collapse">
+      <div id="weather">
+          <div id="description"></div>
+          <h1 id="temp"></h1>
+          <div id="location"></div><br>
+          <div id="precip5day"></div>
+          <div id="precipValue"></div>
+          <div id="conditions"></div>
+      </div>
+    </div>
   </div>
 
+  <div class="panel-container">
+    <div class="panel-side esri-widget">
+     <h3>San Marcos Trails</h3>
+     <ul id="trail_graphics">
+       <li>Loading&hellip;</li>
+     </ul>
+   </div>
   <!--map container-->
-  <div id="viewDiv"></div>
-
+    <div id="viewDiv"></div>
+  </div>
 </body>
 </html>

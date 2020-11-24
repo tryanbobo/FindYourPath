@@ -1,8 +1,14 @@
   .esri-popup__main-container{
 
-       z-index:999;
-
+       z-index:100;
+       color: black;
+       background-image: linear-gradient(to right top,  #99bbcb, #a5c7d7, #b1d4e2, #c9edfa);
+       opacity: .9;
+       font-family: 'Montserrat', sans-serif;
   }
+
+
+
 
   #precip5day {
       font-size: .9em;
@@ -10,22 +16,30 @@
 
   #precipValue {
       margin: 0 auto;
-      font-size: 2.2em;
+      font-size: 1.5em;
       text-align: center;
-      color: #fff;
-      font-size: 2.5em;
+      color: black;
   }
+  #temp {
+    font-size: 1.5em;
+    text-align: center;
+  }
+  .btn btn-indo {
+    height: 20px
+  }
+
+
   .container{
     font-family: 'Montserrat', sans-serif;
-    font-weight: 150;
-    font-size: 0.85em;
+    font-weight: 50;
+    font-size: 0.7em;
     text-align: center;
-    color: #fff;
+    color: black;
     border-radius: 25px;
-    max-width: 160px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    box-sizing: border-box;
+    max-width: 100px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    opacity: 0.85;
     position: absolute;
     top: 3px;
     left: 75px;
@@ -38,11 +52,11 @@
     background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);
   }*/
   h1 {
-      margin: 0 auto;
+      margin: auto;
 
-      text-align: cetner;
+      text-align: left;
       color: #fff;
-      font-size: 2em;
+      font-size: .1em;
   }
   .container.sunny {
       background-image: linear-gradient(to right top, #ff4e50, #ff713e, #ff932b, #ffb41d, #f9d423);
@@ -109,36 +123,3 @@
       color: orange;
       background-color: rgba(0, 0, 0, 0.75);
     }
-
-/*
-.collapsible {
-  z-index: 11;
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  box-sizing: border-box;
-  position: absolute;
-  top: 3px;
-  left: 75px;
-  z-index: 10;
-  font-size: 15px;
-}
-
-.active, .collapsible:hover {
-  z-index: 11;
-  background-color: #ccc;
-}
-
-
-.content {
-  z-index: 11;
-  padding: 0 18px;
-  display: none;
-  max-height: 0;
-  transition: max-height 0.2s ease-out;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-*/

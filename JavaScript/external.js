@@ -255,7 +255,7 @@ require([
     mode: "floating"
   });
 
-  view.ui.add([basemapExpand, editorExpand, measureExpand], "bottom-left");
+  view.ui.add([editorExpand, basemapExpand, measureExpand], "bottom-left");
 });
 
 

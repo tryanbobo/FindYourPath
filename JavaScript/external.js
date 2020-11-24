@@ -4,6 +4,7 @@ require([
   "esri/widgets/BasemapToggle",
   "esri/widgets/DistanceMeasurement2D",
   "esri/widgets/Track",
+  "esri/widgets/Compass",
   "esri/layers/FeatureLayer",
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
@@ -11,7 +12,7 @@ require([
   "esri/widgets/Expand",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Track, Compass, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
     var map = new Map({
       basemap: "topo-vector",
   });
@@ -191,6 +192,11 @@ require([
         });
     }
   }
+  //add compass to show direction while tracking user
+  var compass = new Compass({
+    view: view
+  });
+  view.ui.add(compass, "top-left");
 
   var track = new Track({
     view: view  //assigns tracker to current map view

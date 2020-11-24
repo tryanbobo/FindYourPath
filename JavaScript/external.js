@@ -304,12 +304,12 @@ async function getDataForDaysAgo(days) {
     const apiResponse = await fetch(apiURL)
     const responseJson = await apiResponse.json()
     var total = 0
+    console.log(responseJson);
     responseJson.hourly.forEach(hour => {
 
-        total += hour.rain
-          if (isNaN(total)){
-            total = 0
-          }
+          if (isNaN(hour.rain)){
+            hour.rain = 0
+          }else(total += hour.rain);
 
     });
     console.log(`getDataForDaysAgo(${days}) returns ${total}`)

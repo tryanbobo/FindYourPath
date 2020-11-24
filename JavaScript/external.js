@@ -2,16 +2,16 @@ require([
   "esri/Map",
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
+  "esri/widgets/DistanceMeasurement2D",
   "esri/widgets/Track",
   "esri/layers/FeatureLayer",
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
-  "esri/widgets/Legend",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
     var map = new Map({
       basemap: "topo-vector",
   });
@@ -26,13 +26,7 @@ require([
     nextBasemap: "satellite"
   });
   //view.ui.add(basemapToggle, "bottom-right");
-  var trailDiff = new FeatureLayer({
-    url:
-      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Difficulty_Rating/FeatureServer",
 
-
-  });
-  map.add(trailDiff, 1);
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -120,7 +114,7 @@ require([
       outFields: ["TYPE", "LENGTH_MIL", "PARK"],
       popupTemplate: popupTrails
   });
-  map.add(trailsLayer, 0);
+  map.add(trailsLayer);
 
   const listNode = document.getElementById("trail_graphics");
 
@@ -197,17 +191,6 @@ require([
         });
     }
   }
-/*
-  var legend = new Legend({
-    view: view,
-    layerInfos: [
-      {
-      layer: trailDiff,
-      title: "Trail Difficulty"
-    }
-  ]
-  });
-*/
 
   var track = new Track({
     view: view  //assigns tracker to current map view
@@ -216,6 +199,13 @@ require([
   view.when(function () {  //loads tracker function when view loads
     track.start();  //starts tracker
   });
+
+  // add the DistanceMeasurement2D widget to the map
+  var measurementWidget = new DistanceMeasurement2D({
+    view: view
+  });
+  //view.ui.add(measurementWidget, "top-left");
+
   //Create the edotor
   let editor = new Editor({
   view: view
@@ -252,14 +242,14 @@ require([
     mode: "floating"
   });
 
-  var legendExpand = new Expand({
+  var measureExpand = new Expand({
     view: view,
-    content: trailDiff,
-    expandIconClass: "esri-icon-legend",
+    content: measurementWidget,
+    expandIconClass: "esri-icon-measure",
     mode: "floating"
   });
 
-  view.ui.add([editorExpand, basemapExpand], "bottom-left");
+  view.ui.add([basemapExpand, editorExpand, measureExpand], "bottom-left");
 });
 
 
@@ -343,19 +333,3 @@ getDataSums().then(result => {
       document.getElementById('conditions').innerHTML = "Something broke :("
     }
 });
-/*
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-*/

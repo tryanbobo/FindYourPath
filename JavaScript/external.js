@@ -6,6 +6,7 @@ require([ //add required tools and features used in map
   "esri/widgets/Legend",
   "esri/widgets/Track",
   "esri/widgets/Compass",
+  "esri/widgets/Popup",
   "esri/layers/FeatureLayer",
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
@@ -13,7 +14,7 @@ require([ //add required tools and features used in map
   "esri/widgets/Expand",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){ //call neccicary arcgis js api tools.
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){ //call neccicary arcgis js api tools.
     var map = new Map({
       basemap: "topo-vector", //add default basemap
   });
@@ -21,9 +22,20 @@ require([ //add required tools and features used in map
   var view = new MapView({
     container: "viewDiv",
     map: map,
+    popup: {
+            dockEnabled: false,
+            dockOptions: {
+              // Disables the dock button from the popup
+              buttonEnabled: false,
+              // Ignore the default sizes that trigger responsive docking
+              breakpoint: false
+            }
+          },
     center: [-97.9515, 29.8890],
     zoom: 14
+
   });
+
   //add basemap toggle to switch from topo-vector to satellite
   var basemapToggle = new BasemapToggle({
     view: view,

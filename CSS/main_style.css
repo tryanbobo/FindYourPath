@@ -4,7 +4,7 @@
   .esri-icon{
     color: #fe9929;
   }
-  .esri-popup__main-container{
+  /*.esri-popup__main-container{
        z-index:100;
        background-image: linear-gradient(to right top,  white, grey);
        opacity: .9;
@@ -14,7 +14,7 @@
       background-image: linear-gradient(to right top,  #e66465, #9198e5);
   }
 
-
+*/
 
 /*  body {
     background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);

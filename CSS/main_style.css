@@ -1,3 +1,9 @@
+  .esri-expand{
+    color: #fe9929;
+  }
+  .esri-icon{
+    color: #fe9929;
+  }
   .esri-popup__main-container{
        z-index:100;
        background-image: linear-gradient(to right top,  white, grey);
@@ -149,13 +155,15 @@
         border-radius: 25px;
         max-width: 120px;
         height: 20px
+
         box-sizing: border-box;
         position: absolute;
         top: 3px;
-        left: 75px;
+        left: 55px;
         z-index: 10;
         justify-content: center;
         background-color: #424141;
+
         /*background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);*/
       }
 

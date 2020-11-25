@@ -50,13 +50,13 @@ require([ //add required tools and features used in map
   var parksRenderer = {
     type: "simple",
     symbol: {
-      color: "green",
+      color: "rgb(253, 144, 3)",
       type: "simple-fill",
       style: "solid",
       outline:{
         style: "solid",
-        color: "blue",
-        width: 3
+        color: "black",
+        width: 2
       }
     }
   };
@@ -92,7 +92,7 @@ require([ //add required tools and features used in map
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
     renderer: parksRenderer,
-    opacity: 0.2,
+    opacity: 0.3,
     outFields: ["ADDRESS", "ACRES", "HrsOper"],
     popupTemplate: popupParks
   });
@@ -278,7 +278,7 @@ require([ //add required tools and features used in map
     mode: "floating"
   });
 
-  view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "bottom-left");
+  view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "top-left");
 });
 
 

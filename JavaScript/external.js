@@ -50,13 +50,13 @@ require([ //add required tools and features used in map
   var parksRenderer = {
     type: "simple",
     symbol: {
-      color: "rgb(253, 144, 3)",
+      color: "green",
       type: "simple-fill",
       style: "solid",
       outline:{
         style: "solid",
-        color: "black",
-        width: 2
+        color: "blue",
+        width: 3
       }
     }
   };
@@ -92,7 +92,7 @@ require([ //add required tools and features used in map
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
     renderer: parksRenderer,
-    opacity: 0.3,
+    opacity: 0.2,
     outFields: ["ADDRESS", "ACRES", "HrsOper"],
     popupTemplate: popupParks
   });
@@ -281,7 +281,7 @@ require([ //add required tools and features used in map
   view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "top-left");
 });
 
-
+/*
 // WeatherBallon ///////////////////////////////////////////////////////////////
 //function that takes in cityID/ retrieves weather data
 function weatherBalloon( cityID ) {
@@ -336,7 +336,7 @@ async function getDataForDaysAgo(days) {
           if (isNaN(hour.rain)){
             hour.rain = 0   //if rain is NaN, change that value to 0.
           }else(total += hour.rain); //otherwise sum all available rain values.
-
+          //total += hour.rain
     });
     console.log(`getDataForDaysAgo(${days}) returns ${total}`) //logs total rain values for each 24hr period
     return total
@@ -368,3 +368,4 @@ getDataSums().then(result => { //waits for getDataSums and return result
       document.getElementById('conditions').innerHTML = "Something broke :("
     }
 });
+*/

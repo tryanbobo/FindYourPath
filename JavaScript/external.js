@@ -50,12 +50,12 @@ require([ //add required tools and features used in map
   var parksRenderer = {
     type: "simple",
     symbol: {
-      color: "green",
+      color: "#91510a",
       type: "simple-fill",
       style: "solid",
       outline:{
         style: "solid",
-        color: "blue",
+        color: "#424141",
         width: 3
       }
     }
@@ -92,7 +92,7 @@ require([ //add required tools and features used in map
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
     renderer: parksRenderer,
-    opacity: 0.2,
+    opacity: 0.4,
     outFields: ["ADDRESS", "ACRES", "HrsOper"],
     popupTemplate: popupParks
   });

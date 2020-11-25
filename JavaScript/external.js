@@ -3,6 +3,7 @@ require([ //add required tools and features used in map
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
   "esri/widgets/DistanceMeasurement2D",
+  "esri/widgets/Legend",
   "esri/widgets/Track",
   "esri/widgets/Compass",
   "esri/layers/FeatureLayer",
@@ -12,7 +13,7 @@ require([ //add required tools and features used in map
   "esri/widgets/Expand",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Track, Compass, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){ //call neccicary arcgis js api tools.
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){ //call neccicary arcgis js api tools.
     var map = new Map({
       basemap: "topo-vector", //add default basemap
   });
@@ -28,8 +29,23 @@ require([ //add required tools and features used in map
     view: view,
     nextBasemap: "satellite"
   });
-  //view.ui.add(basemapToggle, "bottom-right");
 
+  //view.ui.add(basemapToggle, "bottom-right");
+  var trailsDiff = new FeatureLayer({
+    url:
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Difficulty_Rating/FeatureServer",
+    content:
+      "<b>Trail Difficulty:</b> {Trail_Diff}"
+  });
+  map.add(trailsDiff, 1);
+
+  var legend = new Legend({
+    view: view,
+    layerInfos: [{
+      layer: trailsDiff,
+      title: "International Mountain Bike Association"
+    }]
+  });
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -80,7 +96,7 @@ require([ //add required tools and features used in map
     outFields: ["ADDRESS", "ACRES", "HrsOper"],
     popupTemplate: popupParks
   });
-  map.add(parksLayer);
+  map.add(parksLayer, 0);
   //assign Trails popup template
   var popupTrails = {
     title: "{NAME}",
@@ -116,7 +132,7 @@ require([ //add required tools and features used in map
       outFields: ["TYPE", "LENGTH_MIL", "PARK"],
       popupTemplate: popupTrails
   });
-  map.add(trailsLayer);
+  map.add(trailsLayer, 0);
 
  //Create trail query side bar
   const listNode = document.getElementById("trail_graphics");
@@ -254,7 +270,14 @@ require([ //add required tools and features used in map
     mode: "floating"
   });
 
-  view.ui.add([editorExpand, basemapExpand, measureExpand], "bottom-left");
+  var legendExpand = new Expand({
+    view: view,
+    content: legend,
+    expandIconClass: "esri-icon-legend",
+    mode: "floating"
+  });
+
+  view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "bottom-left");
 });
 
 

@@ -161,48 +161,23 @@
 		/* DROPDOWN MENU */
 		/* Dropdown Button */
 		.searchbox.dropbtn {
-		  background-color: #424141;
-		  color: #fe9929;
-		  padding: 16px;
-		  font-size: 16px;
-			border-radius: 2px;
-			border: 2px solid #252525;
+      background-color: #424141;
+      color: #fe9929;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 2px;
+      border: 2px solid #252525;
+      float: right;
+    }
 
-		}
+    /* The container <div> - needed to position the dropdown content */
+    .searchbox.dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-		/* The container <div> - needed to position the dropdown content */
-		.searchbox.dropdown {
-		  position: relative;
-		  display: inline-block;
-		}
-
-		/* Dropdown Content */
-		.searchbox.dropdown-content {
-		  display: none;
-		  position: absolute;
-		  background-color: #636363;
-		  min-width: 160px;
-			opacity: .9;
-		  box-shadow: 0px 8px 16px 0px #0000;
-		  z-index: 1;
-		}
-
-		/* Links inside the dropdown */
-		.searchbox.dropdown-content a {
-		  color: #fe9929;
-		  padding: 12px 16px;
-		  text-decoration: none;
-		  display: block;
-		}
-
-		/* Change color of dropdown links on hover */
-		.searchbox.dropdown-content a:hover {background-color: #252525;}
-
-		/* Show the dropdown menu on hover */
-		.searchbox.dropdown:hover .dropdown-content {display: block;}
-
-		/* Change the background color of the dropdown button when the dropdown content is shown */
-		.searchbox.dropdown:hover .dropbtn {background-color: #252525;}
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .searchbox.dropdown:hover .dropbtn {background-color: #252525;}
 
 /* FOOTER */
 

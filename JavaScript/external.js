@@ -1,53 +1,66 @@
-require([
+require([ //add required tools and features used in map
   "esri/Map",
   "esri/views/MapView",
   "esri/widgets/BasemapToggle",
+  "esri/widgets/DistanceMeasurement2D",
+  "esri/widgets/Legend",
   "esri/widgets/Track",
+  "esri/widgets/Compass",
   "esri/layers/FeatureLayer",
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
-  "esri/widgets/Legend",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, Track, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){ //call neccicary arcgis js api tools.
     var map = new Map({
-      basemap: "topo-vector",
+      basemap: "topo-vector", //add default basemap
   });
+  //assign map container, view, and starting location
   var view = new MapView({
     container: "viewDiv",
     map: map,
-    center: [-97.9414, 29.8833],
-    zoom: 13
+    center: [-97.9515, 29.8890],
+    zoom: 14
   });
+  //add basemap toggle to switch from topo-vector to satellite
   var basemapToggle = new BasemapToggle({
     view: view,
     nextBasemap: "satellite"
   });
+
   //view.ui.add(basemapToggle, "bottom-right");
-  var trailDiff = new FeatureLayer({
+  var trailsDiff = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Difficulty_Rating/FeatureServer",
-
-
+    content:
+      "<b>Trail Difficulty:</b> {Trail_Diff}"
   });
-  map.add(trailDiff, 1);
+  map.add(trailsDiff, 1);
+
+  var legend = new Legend({
+    view: view,
+    layerInfos: [{
+      layer: trailsDiff,
+      title: "International Mountain Bike Association"
+    }]
+  });
   //parks renderer
   var parksRenderer = {
     type: "simple",
     symbol: {
-      color: "green",
+      color: "rgb(253, 144, 3)",
       type: "simple-fill",
       style: "solid",
       outline:{
         style: "solid",
-        color: "blue",
-        width: 3
+        color: "black",
+        width: 2
       }
     }
   };
-
+  //assign Parks popup template
   var popupParks = {
     title: "{NAME}",
     content: [
@@ -79,12 +92,12 @@ require([
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_CityPark_22oct2020/FeatureServer",
     renderer: parksRenderer,
-    opacity: 0.2,
+    opacity: 0.3,
     outFields: ["ADDRESS", "ACRES", "HrsOper"],
     popupTemplate: popupParks
   });
-  map.add(parksLayer);
-
+  map.add(parksLayer, 0);
+  //assign Trails popup template
   var popupTrails = {
     title: "{NAME}",
     content: [
@@ -113,7 +126,6 @@ require([
   };
 
   //add trails feature layer(line)
-
   var trailsLayer = new FeatureLayer({
     url:
       "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/CoSM_ParkTrail_22oct2020/FeatureServer",
@@ -122,6 +134,7 @@ require([
   });
   map.add(trailsLayer, 0);
 
+ //Create trail query side bar
   const listNode = document.getElementById("trail_graphics");
 
   let graphics;
@@ -147,7 +160,7 @@ require([
               const attributes = result.attributes;
               const name = attributes.NAME;
 
-              // Create a list zip codes in NY
+              // Create a list of trails
               const li = document.createElement("li");
               li.classList.add("panel-result");
               li.tabIndex = 0;
@@ -167,21 +180,20 @@ require([
     });
   });
 
-  // listen to click event on the zip code list
+  // listen to click event on the trails list
   listNode.addEventListener("click", onListClickHandler);
 
   function onListClickHandler(event) {
     const target = event.target;
     const resultId = target.getAttribute("data-result-id");
 
-    // get the graphic corresponding to the clicked zip code
+    // get the graphic corresponding to the clicked trail
     const result =
       resultId && graphics && graphics[parseInt(resultId, 10)];
 
     if (result) {
-      // open the popup at the centroid of zip code polygon
+      // open the popup at the centroid of trail line
       // and set the popup's features which will populate popup content and title.
-
       view
         .goTo(result.geometry.extent.expand(2))
         .then(function () {
@@ -197,38 +209,26 @@ require([
         });
     }
   }
-
   // Collapsible
-  var coll = document.getElementsByClassName("collapsible");
+ var coll = document.getElementsByClassName("collapsible");
 var i;
 
 for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
+ coll[i].addEventListener("click", function() {
+   this.classList.toggle("active");
+   var content = this.nextElementSibling;
+   if (content.style.display === "block") {
+     content.style.display = "none";
+   } else {
+     content.style.display = "block";
+   }
+ });
 }
-
-
-
-
-
-/*
-  var legend = new Legend({
-    view: view,
-    layerInfos: [
-      {
-      layer: trailDiff,
-      title: "Trail Difficulty"
-    }
-  ]
+  //add compass to show direction while tracking user
+  var compass = new Compass({
+    view: view
   });
-*/
+  view.ui.add(compass, "top-left");
 
   var track = new Track({
     view: view  //assigns tracker to current map view
@@ -237,35 +237,41 @@ for (i = 0; i < coll.length; i++) {
   view.when(function () {  //loads tracker function when view loads
     track.start();  //starts tracker
   });
+
+  // add the DistanceMeasurement2D widget to the map
+  var measurementWidget = new DistanceMeasurement2D({
+    view: view,
+    unit: "feet"
+  });
+  //view.ui.add(measurementWidget, "top-left");
+
   //Create the edotor
   let editor = new Editor({
-  view: view
-  // Pass in any other additional property as needed
-});
-// Add widget to top-right of the view
+    view: view
+  });
+
 //view.ui.add(editor, "top-right");
-  //Problem popups
+  //Problem popup template
   var popProblems = {
     title:"Trail Report" ,
     content:
       "<b>Trail Issue:</b> {HazardType}<br> <b>Status:</b> {Status}<br> <b>Comments:</b> {Description}<br> <b>Priority:</b> {Priority}"
   }
-  //*** ADD ***//
+  //add hosted feature service used to store and edit tail edits.
   var myPointsFeatureLayer = new FeatureLayer({
-    //*** Replace with your URL ***//
     url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Conditions/FeatureServer",
     outFields:["HazardType", "Status", "Description", "Priority"],
     popupTemplate:popProblems
   });
   map.add(myPointsFeatureLayer)
-
+  //add basemapToggle, editor, and measure tools to expand tool at bottum left of view.
   var basemapExpand = new Expand({
     view: view,
     content: basemapToggle,
     expandIconClass: "esri-icon-basemap",
     mode: "floating"
-
   });
+
   var editorExpand = new Expand({
     view: view,
     content: editor,
@@ -273,44 +279,53 @@ for (i = 0; i < coll.length; i++) {
     mode: "floating"
   });
 
+  var measureExpand = new Expand({
+    view: view,
+    content: measurementWidget,
+    expandIconClass: "esri-icon-measure",
+    mode: "floating"
+  });
+
   var legendExpand = new Expand({
     view: view,
-    content: trailDiff,
+    content: legend,
     expandIconClass: "esri-icon-legend",
     mode: "floating"
   });
 
-  view.ui.add([editorExpand, basemapExpand], "bottom-left");
+  view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "top-left");
 });
 
 
 // WeatherBallon ///////////////////////////////////////////////////////////////
+//function that takes in cityID/ retrieves weather data
 function weatherBalloon( cityID ) {
   var key = '4f65582b38d251b7b07af44b50464e8a';
-  fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)//fetches stream of weather data
+  fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)//api call -- fetches current of weather data
   .then(function(resp) { return resp.json() }) //convert data to JSON
   .then(function(data) {
-    drawWeather(data);
-    //console.log(data);
+    drawWeather(data); //applies recieved data to drawWeather function
+    console.log(data);
   })
-  .catch(function() {
-    //catch any errors
+  .catch(function() { //catch any errors
+
   });
 }
 
 window.onload = function(){
-  weatherBalloon( 4726491 );
+  weatherBalloon( 4726491 ); //call function with cityID
 }
 
 function drawWeather( d ) {
-	var celcius = Math.round(parseFloat(d.main.temp)-273.15);
-	var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32);
-	var description = d.weather[0].description;
 
+	var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32);//convertes temp to fahrenheit and reduces dicimal points
+	var description = d.weather[0].description;
+  //adds current weather fetches to html elements
 	document.getElementById('description').innerHTML = description;
 	document.getElementById('temp').innerHTML = fahrenheit + '&deg; F';
 	document.getElementById('location').innerHTML = d.name + ', TX';
-
+  //condition that is used to change css style based on the weather conditions
+  //...this broke when moving to the drop-down
 	if( description.indexOf('rain') > 0 ) {
   	   document.getElementsByClassName("container").innerHTML = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
@@ -319,45 +334,45 @@ function drawWeather( d ) {
   	   document.getElementsByClassName("container").innerHTML = 'sunny';
   }
 }
+//converts current unix date from miliseconds to seconds and subtracts seconds from variable daysAgo
 function getDaysAgo(days) {
-    return Math.floor((Date.now() / 1000) - (86400 * days))
+    return Math.floor((Date.now() / 1000) - (86400 * days)) //returns date of privious 5 days from now.
 }
-
-function getDaysAgo(days) {
-    return Math.floor((Date.now() / 1000) - (86400 * days))
-}
-
+//fetchs historic hourly weather data for rain.
 async function getDataForDaysAgo(days) {
-    let daysAgo = getDaysAgo(days)
-    const apiURL = `http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=${daysAgo}&appid=5ffab1cda2c6b2750c78515f41421805`
-    const apiResponse = await fetch(apiURL)
-    const responseJson = await apiResponse.json()
+    let daysAgo = getDaysAgo(days) //nest getDaysAgo function to variable
+    const apiURL = `http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=${daysAgo}&appid=5ffab1cda2c6b2750c78515f41421805` //calls historic weather api using privious days
+    const apiResponse = await fetch(apiURL)  //fetch data
+    const responseJson = await apiResponse.json() //converts data to json
     var total = 0
-    responseJson.hourly.forEach(hour => {
-
-        total += hour.rain
-          if (isNaN(total)){
-            total = 0
-          }
+    console.log(responseJson);
+    responseJson.hourly.forEach(hour => { //loops through each 1hr record of 24
+          //if no rain is recorded, rain data is not available. system reprots: NaN
+          if (isNaN(hour.rain)){
+            hour.rain = 0   //if rain is NaN, change that value to 0.
+          }else(total += hour.rain); //otherwise sum all available rain values.
 
     });
-    console.log(`getDataForDaysAgo(${days}) returns ${total}`)
+    console.log(`getDataForDaysAgo(${days}) returns ${total}`) //logs total rain values for each 24hr period
     return total
 }
-
+//call above fetch function with appropriate historic 'daysAgo'
 async function getDataSums() {
     var data1 = await getDataForDaysAgo(5)
     var data2 = await getDataForDaysAgo(4)
     var data3 = await getDataForDaysAgo(3)
     var data4 = await getDataForDaysAgo(2)
     var data5 = await getDataForDaysAgo(1)
-    return data1 + data2 + data3 + data4 + data5;
+    var data0 = await getDataForDaysAgo(0)
+    return data1 + data2 + data3 + data4 + data5 + data0; //returns sum of 5 day rain values
 }
 
-getDataSums().then(result => {
+getDataSums().then(result => { //waits for getDataSums and return result
     var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
       document.getElementById('precip5day').innerHTML = "Five Day Precipication Accumulation:"
       document.getElementById('precipValue').innerHTML = totalRainInches.toFixed(2) + "&Prime;"
+    //proof of concept conditional statment that gives recommendations for trail use
+    //based on 5 day rain totals and writes to index.html file
     if (totalRainInches <= 0.50){
       document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"
     } else if (totalRainInches < 3 ){

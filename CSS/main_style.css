@@ -11,18 +11,20 @@
 
 
   #precip5day {
-      font-size: .9em;
+      font-size: .8em;
+      color: #fe9929;
   }
 
   #precipValue {
       margin: 0 auto;
-      font-size: 1.5em;
+      font-size: 1.8em;
       text-align: center;
-      color: black;
-  }
+      color: #fe9929;
+    }
   #temp {
-    font-size: 1.5em;
+    font-size: 14px;
     text-align: center;
+    color: #fe9929;
   }
   .btn btn-indo {
     height: 20px
@@ -31,21 +33,23 @@
 
   .container{
     font-family: 'Montserrat', sans-serif;
-    font-weight: 50;
-    font-size: 0.7em;
+    font-weight: 150;
+    font-size: 0.85em;
     text-align: center;
-    color: black;
+    color: #fe9929;
     border-radius: 25px;
-    max-width: 100px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    opacity: 0.85;
+    max-width: 160px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    box-sizing: border-box;
     position: absolute;
+    height: 5px
     top: 3px;
     left: 75px;
-    z-index: 1;
+    z-index: 10;
     justify-content: center;
-    background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);
+    background-color: #424141;
+    /*background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);*/
   }
 
 /*  body {
@@ -125,16 +129,16 @@
     }
     /* Style the button that is used to open and close the collapsible content */
     .collapsible {
-      background-color: #756bb1;
+      background-color: #424141;
       color: black;
       cursor: pointer;
-      padding: 18px;
+      padding: 3px;
       max-width: 250px;
       border: none;
       border-radius: 8px;
       text-align:center;
       outline: none;
-      font-size: 18px;
+      font-size: 14px;
       position: fixed;
       z-index: 10;
       position: absolute;
@@ -152,7 +156,7 @@
       padding: 0 18px;
       display: none;
       overflow: hidden;
-      background-color: #b3cde3 /*#f1f1f1*/;
+      /*background-color: #b3cde3 #f1f1f1*/;
     }
 
 
@@ -165,7 +169,7 @@
       text-align: center;
       position: absolute;
       top: 3px;
-      left: 200px;
+      left: 35%;
       z-index: 1;
     }
 

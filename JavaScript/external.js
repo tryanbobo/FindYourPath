@@ -296,7 +296,7 @@ for (i = 0; i < coll.length; i++) {
   view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "top-left");
 });
 
-/*
+
 // WeatherBallon ///////////////////////////////////////////////////////////////
 //function that takes in cityID/ retrieves weather data
 function weatherBalloon( cityID ) {
@@ -334,6 +334,7 @@ function drawWeather( d ) {
   	   document.getElementsByClassName("container").innerHTML = 'sunny';
   }
 }
+/*
 //converts current unix date from miliseconds to seconds and subtracts seconds from variable daysAgo
 function getDaysAgo(days) {
     return Math.floor((Date.now() / 1000) - (86400 * days)) //returns date of privious 5 days from now.

@@ -1,56 +1,14 @@
   .esri-popup__main-container{
        z-index:100;
-       background-image: linear-gradient(to right top,  #e66465, #9198e5);
+       background-image: linear-gradient(to right top,  white, grey);
        opacity: .9;
-       font-family: 'Montserrat', sans-serif;
+
   }
   .esri-popup__content{
       background-image: linear-gradient(to right top,  #e66465, #9198e5);
   }
 
 
-
-  #precip5day {
-      font-size: .8em;
-      color: #fe9929;
-  }
-
-  #precipValue {
-      margin: 0 auto;
-      font-size: 1.8em;
-      text-align: center;
-      color: #fe9929;
-    }
-  #temp {
-    font-size: 14px;
-    text-align: center;
-    color: #fe9929;
-  }
-  .btn btn-indo {
-    height: 20px
-  }
-
-
-  .container{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 150;
-    font-size: 0.85em;
-    text-align: center;
-    color: #fe9929;
-    border-radius: 25px;
-    max-width: 160px;
-    padding-bottom: 3px;
-    padding-top: 3px;
-    box-sizing: border-box;
-    position: absolute;
-
-    top: 3px;
-    left: 75px;
-    z-index: 10;
-    justify-content: center;
-    background-color: #424141;
-    /*background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);*/
-  }
 
 /*  body {
     background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);
@@ -87,6 +45,7 @@
     }
 
     .panel-side {
+      border-radius: 25px;
       padding: 2px;
       box-sizing: border-box;
       width: 250px;
@@ -160,15 +119,55 @@
     }
 
 
+      #precip5day {
+          font-size: .8em;
+          color: #fe9929;
+      }
+
+      #precipValue {
+          margin: 0 auto;
+          font-size: 1.8em;
+          text-align: center;
+          color: #fe9929;
+        }
+      #temp {
+        font-size: 20px;
+        text-align: center;
+        color: #fe9929;
+      }
+      .btn btn-indo {
+        height: 20px
+      }
+
+
+      .container{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 0;
+        font-size: 0.85em;
+        text-align: center;
+        color: #fe9929;
+        border-radius: 25px;
+        max-width: 120px;
+        height: 20px
+        box-sizing: border-box;
+        position: absolute;
+        top: 3px;
+        left: 75px;
+        z-index: 10;
+        justify-content: center;
+        background-color: #424141;
+        /*background-image: linear-gradient(to right top, #99bbcb, #a5c7d7, #b1d4e2, #bde0ee, #c9edfa);*/
+      }
+
 
     /* ABOUT/RESOURCES/CONTACT Buttons */
 
     .container2{
-      font-weight: 50;
+      font-weight: 0;
       font-size: 0.5em;
       text-align: center;
       position: absolute;
-      top: 95%;
+      bottom: 3px;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1;

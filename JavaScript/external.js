@@ -225,7 +225,8 @@ require([ //add required tools and features used in map
 
   // add the DistanceMeasurement2D widget to the map
   var measurementWidget = new DistanceMeasurement2D({
-    view: view
+    view: view,
+    unit: "feet"
   });
   //view.ui.add(measurementWidget, "top-left");
 
@@ -347,7 +348,8 @@ async function getDataSums() {
     var data3 = await getDataForDaysAgo(3)
     var data4 = await getDataForDaysAgo(2)
     var data5 = await getDataForDaysAgo(1)
-    return data1 + data2 + data3 + data4 + data5; //returns sum of 5 day rain values
+    var data0 = await getDataForDaysAgo(0)
+    return data1 + data2 + data3 + data4 + data5 + data0; //returns sum of 5 day rain values
 }
 
 getDataSums().then(result => { //waits for getDataSums and return result

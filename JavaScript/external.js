@@ -336,7 +336,7 @@ function drawWeather( d ) {
 	document.getElementById('description').innerHTML = description;
 	document.getElementById('temp').innerHTML = fahrenheit + '&deg; F';
 	document.getElementById('location').innerHTML = d.name + ', TX';
-  //condition that is used to change css style based on the weather conditions
+  //condition that is used to change css style (background) based on the weather conditions
   //...this broke when moving to the drop-down
 	if( description.indexOf('rain') > 0 ) {
   	   document.getElementsByClassName("container").innerHTML = 'rainy';
@@ -346,7 +346,7 @@ function drawWeather( d ) {
   	   document.getElementsByClassName("container").innerHTML = 'sunny';
   }
 }
-/*
+
 //converts current unix date from miliseconds to seconds and subtracts seconds from variable daysAgo
 function getDaysAgo(days) {
     return Math.floor((Date.now() / 1000) - (86400 * days)) //returns date of privious 5 days from now.
@@ -364,7 +364,7 @@ async function getDataForDaysAgo(days) {
           if (isNaN(hour.rain)){
             hour.rain = 0   //if rain is NaN, change that value to 0.
           }else(total += hour.rain); //otherwise sum all available rain values.
-          //total += hour.rain
+          //total += hour.humidity
     });
     console.log(`getDataForDaysAgo(${days}) returns ${total}`) //logs total rain values for each 24hr period
     return total
@@ -376,8 +376,7 @@ async function getDataSums() {
     var data3 = await getDataForDaysAgo(3)
     var data4 = await getDataForDaysAgo(2)
     var data5 = await getDataForDaysAgo(1)
-    var data0 = await getDataForDaysAgo(0)
-    return data1 + data2 + data3 + data4 + data5 + data0; //returns sum of 5 day rain values
+    return data1 + data2 + data3 + data4 + data5; //returns sum of 5 day rain values
 }
 
 getDataSums().then(result => { //waits for getDataSums and return result
@@ -389,11 +388,10 @@ getDataSums().then(result => { //waits for getDataSums and return result
     if (totalRainInches <= 0.50){
       document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"
     } else if (totalRainInches < 3 ){
-      document.getElementById('conditions').innerHTML = "Do to recent rain avtivity, use best judgement when hiking or mountain biking"
+      document.getElementById('conditions').innerHTML = "Due to recent rain activity, use best judgement when hiking or mountain biking"
     } else if (totalRainInches > 7 ){
       document.getElementById('conditions').innerHTML = "Due to heavy rainfall, trails should not be used"
     }else {
       document.getElementById('conditions').innerHTML = "Something broke :("
     }
 });
-*/

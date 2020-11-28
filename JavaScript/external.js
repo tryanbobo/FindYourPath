@@ -339,14 +339,14 @@ function drawWeather( d ) {
   //condition that is used to change css style (background) based on the weather conditions
   //...this broke when moving to the drop-down
 	if( description.indexOf('rain') > 0 ) {
-  	   document.getElementsByClassName("container").innerHTML = 'rainy';
+  	   document.h1.className = 'rainy';
   } else if( description.indexOf('cloud') > 0 ) {
-  	   document.getElementsByClassName("container").innerHTML = 'cloudy';
+  	    document.h1.className = 'cloudy';
   } else if( description.indexOf('sunny') > 0 ) {
-  	   document.getElementsByClassName("container").innerHTML = 'sunny';
+  	    document.h1.className = 'sunny';
   }
 }
-
+/*
 //converts current unix date from miliseconds to seconds and subtracts seconds from variable daysAgo
 function getDaysAgo(days) {
     return Math.floor((Date.now() / 1000) - (86400 * days)) //returns date of privious 5 days from now.
@@ -362,8 +362,8 @@ async function getDataForDaysAgo(days) {
 
     responseJson.hourly.forEach(hour => { //loops through each 1hr record of 24
           //if no rain is recorded, rain data is not available. system reprots: NaN
-          if (hour.rain){
-                total += hour.rain['1h']
+          if (hour.rain){ //check for rain values
+                total += hour.rain['1h'] //add available rain measurements to total
               }
 
 
@@ -400,3 +400,4 @@ getDataSums().then(result => { //waits for getDataSums and return result
       document.getElementById('conditions').innerHTML = "Something broke :("
     }
 });
+*/

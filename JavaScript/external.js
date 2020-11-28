@@ -359,12 +359,17 @@ async function getDataForDaysAgo(days) {
     const responseJson = await apiResponse.json() //converts data to json
     var total = 0
     console.log(responseJson);
+
     responseJson.hourly.forEach(hour => { //loops through each 1hr record of 24
           //if no rain is recorded, rain data is not available. system reprots: NaN
-          if (isNaN(hour.rain)){
-            hour.rain = 0   //if rain is NaN, change that value to 0.
-          }else(total += hour.rain); //otherwise sum all available rain values.
-          //total += hour.humidity
+          if (hour.rain){
+                total += hour.rain['1h']
+              }
+
+
+        //otherwise sum all available rain values.
+          //total += hour.rain
+
     });
     console.log(`getDataForDaysAgo(${days}) returns ${total}`) //logs total rain values for each 24hr period
     return total
@@ -380,7 +385,7 @@ async function getDataSums() {
 }
 
 getDataSums().then(result => { //waits for getDataSums and return result
-    var totalRainInches = parseFloat((result)*25.4); //converts to mm to inches
+    var totalRainInches = parseFloat((result)/25.4); //converts to mm to inches
       document.getElementById('precip5day').innerHTML = "Five Day Precipication Accumulation:"
       document.getElementById('precipValue').innerHTML = totalRainInches.toFixed(2) + "&Prime;"
     //proof of concept conditional statment that gives recommendations for trail use

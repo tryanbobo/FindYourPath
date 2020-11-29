@@ -66,6 +66,11 @@
 				font-size: 4rem;
 				font-weight: 700;
 				color: #FFF;
+				text-shadow:
+				-1px -1px 0 #3b5d2d,
+				1px -1px 0 #3b5d2d,
+				-1px 1px 0 #3b5d2d,
+				1px 1px 0 #3b5d2d;
 				text-decoration: none;
 				line-height: 1rem;
 
@@ -76,6 +81,11 @@
 				font-size: 1rem;
 				display: block;
 				color: #ffffbf;
+				text-shadow:
+				-1px -1px 0 #3b5d2d,
+				1px -1px 0 #3b5d2d,
+				-1px 1px 0 #3b5d2d,
+				1px 1px 0 #3b5d2d;
 			}
 
 
@@ -146,7 +156,7 @@
 
 		.searchbox.style2 header {
 
-			background: rgba(153, 52, 4 ,0.6); /* Switched to rgba from hex to resolve opacity issue */
+			background: rgb(153, 53, 4, 0.6); /* Switched to rgba from hex to resolve opacity issue */
 			border-radius: 4px 4px 0 0;
 			color: white;
 }
@@ -165,7 +175,7 @@
       color: #fe9929;
       padding: 12px;
       font-size: 16px;
-      border-radius: 2px;
+      border-radius: 25px;
       border: 2px solid #252525;
       float: right;
     }

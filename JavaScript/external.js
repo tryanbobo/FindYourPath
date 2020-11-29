@@ -69,7 +69,7 @@ var directionsWidget = new Directions({
       });
 
       view.ui.add(directionsWidget, {
-        position: "bottom-right",
+        position: "bottom-left",
         index: 2,
 
       });

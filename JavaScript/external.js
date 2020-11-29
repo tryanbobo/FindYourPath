@@ -68,12 +68,12 @@ var directionsWidget = new Directions({
 
       });
 
-      view.ui.add(directionsWidget, {
+      /*view.ui.add(directionsWidget, {
         position: "bottom-left",
         index: 2,
 
       });
-
+*/
 
 
 
@@ -324,10 +324,18 @@ for (i = 0; i < coll.length; i++) {
     expandIconClass: "esri-icon-legend",
     mode: "floating"
   });
+  var directionsExpand = new Expand({
+    view: view,
+    content: directionsWidget,
+    expandIconClass: "esri-icon-directions2",
+    mode: "floating"
+    });
 
   view.ui.add([editorExpand, basemapExpand, measureExpand, legendExpand], "top-left");
-});
+  view.ui.add([editorExpand], "bottom-left");
+  view.ui.add([directionsExpand], "bottom-right");
 
+});
 
 // WeatherBallon ///////////////////////////////////////////////////////////////
 //function that takes in cityID/ retrieves weather data
@@ -366,7 +374,7 @@ function drawWeather( d ) {
   	    document.h1.className = 'sunny';
   }
 }
-/*
+
 //converts current unix date from miliseconds to seconds and subtracts seconds from variable daysAgo
 function getDaysAgo(days) {
     return Math.floor((Date.now() / 1000) - (86400 * days)) //returns date of privious 5 days from now.
@@ -410,14 +418,15 @@ getDataSums().then(result => { //waits for getDataSums and return result
       document.getElementById('precipValue').innerHTML = totalRainInches.toFixed(2) + "&Prime;"
     //proof of concept conditional statment that gives recommendations for trail use
     //based on 5 day rain totals and writes to index.html file
-    if (totalRainInches <= 0.50){
+    if (totalRainInches <= 0.15){
       document.getElementById('conditions').innerHTML = "Hiking and mountain biking should be okay"
     } else if (totalRainInches < 3 ){
       document.getElementById('conditions').innerHTML = "Due to recent rain activity, use best judgement when hiking or mountain biking"
-    } else if (totalRainInches > 7 ){
+    } else if (totalRainInches < 7 ){
       document.getElementById('conditions').innerHTML = "Due to heavy rainfall, trails should not be used"
+    } else if (totalRainInches > 7){
+      document.getElementById('conditions').innerHTML = "Due to catastrophic rainfall, all trials are closed"
     }else {
       document.getElementById('conditions').innerHTML = "Something broke :("
     }
 });
-*/

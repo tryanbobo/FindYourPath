@@ -10,11 +10,12 @@ require([ //add required tools and features used in map
   "esri/layers/FeatureLayer",
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
+  "esri/widgets/Directions",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Editor, Expand){ //call neccicary arcgis js api tools.
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Directions, Editor, Expand){ //call neccicary arcgis js api tools.
     var map = new Map({
       basemap: "topo-vector", //add default basemap
   });
@@ -58,6 +59,25 @@ require([ //add required tools and features used in map
       title: "International Mountain Bike Association"
     }]
   });
+
+// Routing And Navigation
+
+var directionsWidget = new Directions({
+        view: view,
+        routeServiceUrl:"https://utility.arcgis.com/usrsvcs/appservices/io4S0BRoPlMFNkO6/rest/services/World/Route/NAServer/Route_World",
+
+      });
+
+      view.ui.add(directionsWidget, {
+        position: "top-right",
+        index: 2,
+        opacity: 2,
+      });
+
+
+
+
+
   //parks renderer
   var parksRenderer = {
     type: "simple",

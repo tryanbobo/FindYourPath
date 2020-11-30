@@ -13,9 +13,10 @@ require([ //add required tools and features used in map
   "esri/widgets/Directions",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
+  "dojo/dom",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Directions, Editor, Expand){ //call neccicary arcgis js api tools.
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Directions, Editor, Expand, dom){ //call neccicary arcgis js api tools.
     var map = new Map({
       basemap: "topo-vector", //add default basemap
   });
@@ -74,10 +75,6 @@ var directionsWidget = new Directions({
 
       });
 */
-
-
-
-
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -275,6 +272,7 @@ for (i = 0; i < coll.length; i++) {
     view: view,
     unit: "feet"
   });
+  
   //view.ui.add(measurementWidget, "top-left");
 
   //Create the edotor

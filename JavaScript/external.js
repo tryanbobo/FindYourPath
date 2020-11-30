@@ -13,9 +13,10 @@ require([ //add required tools and features used in map
   "esri/widgets/Directions",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
+  "dojo/dom",
   "dojo/domReady!"
 
-], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Directions, Editor, Expand){ //call neccicary arcgis js api tools.
+], function(Map, MapView, BasemapToggle, DistanceMeasurement2D, Legend, Track, Compass, Popup, FeatureLayer,Graphic, GraphicsLayer, Directions, Editor, Expand, dom){ //call neccicary arcgis js api tools.
     var map = new Map({
       basemap: "topo-vector", //add default basemap
   });
@@ -52,11 +53,25 @@ require([ //add required tools and features used in map
   });
   map.add(trailsDiff, 1);
 
+  //add parking FeatureLayer
+  var parkingLayer = new FeatureLayer({
+    url:
+      "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/Trail_Parking/FeatureServer",
+    content:
+      "<b>Parking:</b> {Parking}"
+
+  });
+  map.add(parkingLayer, 0);
+
   var legend = new Legend({
     view: view,
     layerInfos: [{
       layer: trailsDiff,
-      title: "International Mountain Bike Association"
+      title: ""
+    },{
+      layer: parkingLayer,
+      title: "Parking"
+
     }]
   });
 
@@ -74,10 +89,6 @@ var directionsWidget = new Directions({
 
       });
 */
-
-
-
-
   //parks renderer
   var parksRenderer = {
     type: "simple",
@@ -165,6 +176,8 @@ var directionsWidget = new Directions({
       popupTemplate: popupTrails
   });
   map.add(trailsLayer, 0);
+  //add trails feature layer(line)
+
 
  //Create trail query side bar
   const listNode = document.getElementById("trail_graphics");
@@ -275,6 +288,7 @@ for (i = 0; i < coll.length; i++) {
     view: view,
     unit: "feet"
   });
+
   //view.ui.add(measurementWidget, "top-left");
 
   //Create the edotor

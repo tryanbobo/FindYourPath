@@ -396,7 +396,7 @@ function getDaysAgo(days) {
 //fetchs historic hourly weather data for rain.
 async function getDataForDaysAgo(days) {
     let daysAgo = getDaysAgo(days) //nest getDaysAgo function to variable
-    const apiURL = `http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=${daysAgo}&appid=5ffab1cda2c6b2750c78515f41421805` //calls historic weather api using privious days
+    const apiURL = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=29.8833&lon=-97.9414&dt=${daysAgo}&appid=5ffab1cda2c6b2750c78515f41421805` //calls historic weather api using privious days
     const apiResponse = await fetch(apiURL)  //fetch data
     const responseJson = await apiResponse.json() //converts data to json
     var total = 0

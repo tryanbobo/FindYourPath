@@ -1,4 +1,54 @@
-# FindYourPath
+# Find Your Path
 
-“Everybody needs beauty as well as bread, places to play in and pray in, where nature may heal and give strength to body and soul alike”. John Muir wrote this more than one century ago, but it seems that it is even more important now for us to take some time to be with ourselves and with nature to heal and nourish our spirit and be prepared to face the challenges of our everyday lives. With the effect of the current pandemic, outdoor recreational activities that take us away from disturbing news reports, boredom and stress, and bring us closer to a peaceful natural environment are becoming increasingly more important. In these outdoor recreational activities, trails play a significant role. In this project, we developed a web map that will help people to find the appropriate trails at San Marcos (TX) based on location, trial difficulty, user trail issues and weather conditions. 
-People find it difficult to choose the appropriate trail due to lack of information regarding their location and distance. Other concerns that often arise when selecting a trail include issues or obstacles the user may face while on those trails. For example, high precipitation can contribute to trail degradation, rendering it unusable or dangerous for activities such as hiking and cycling. To alleviate these concerns, we have created an interactive web map that will help people identify nearby trails. It will also facilitate the trails’ visitors to update conditions like drainage issues, erosion, fallen trees, etc. This information will be beneficial for future visitors to choose the appropriate trail according to their needs and allow for a grassroots effort to identify and resolve trail issues.
+Welcome to the Find Your Path Web Map! This project aims to provide a convenient way for outdoor enthusiasts to discover and explore trails in San Marcos, TX. Whether you're seeking a peaceful hike, an invigorating bike ride, or just a tranquil spot to unwind, this map has you covered.
+
+
+## What We've Built
+
+In this project, we've developed an interactive web map that makes it easy for you to find the perfect trail based on various criteria:
+
+- **Location:** Search trails based on your current location or a specified area.
+- **Difficulty:** Filter trails by difficulty level to match your skill and fitness.
+- **Trail Conditions:** Get real-time updates on trail conditions, such as drainage issues, erosion, fallen trees, and more.
+- **Weather Conditions:** Stay informed about weather conditions to plan your outdoor adventure accordingly.
+
+## Features
+
+### Map Tools
+- **Basemap Toggle:** Switch between different basemaps, including topographic and satellite views.
+- **Distance Measurement:** Measure distances along trails for better planning.
+- **Legend:** View the legend to understand map symbols and features.
+- **Compass and Track:** Stay oriented with a compass and track your location on the map.
+- **Popup Information:** Click on map features to get detailed information, such as trail names and amenities.
+
+### Trail Information
+- **Trail Difficulty Ratings:** See the difficulty ratings of each trail to choose one that suits your preferences.
+- **Parking Locations:** Find nearby parking areas for easy access to the trails.
+- **Trail Popups:** Click on trails to view detailed information, including type, length, and associated parks.
+
+### Reporting and Editing
+- **Directions Widget:** Plan your route to the trailhead with the Directions tool.
+- **Editor Tool:** Contribute to the community by updating trail conditions, hazards, and more.
+- **Report Trail Issues:** Report trail issues like hazards, closures, or maintenance needs to help improve trail quality for everyone.
+
+## How to Use
+
+1. **Explore the Map:** Use the map to browse trails, parks, and amenities in San Marcos.
+2. **Filter Trails:** Use the sidebar to filter trails based on difficulty or park name.
+3. **Get Trail Details:** Click on a trail to see detailed information and photos.
+4. **Plan Your Adventure:** Use the Directions tool to plan your route to the trailhead.
+5. **Contribute:** Help maintain trail quality by reporting issues using the Editor tool.
+
+## Weather Information
+
+Stay informed about current and past weather conditions in San Marcos:
+- **Current Weather:** Check the current temperature and weather description.
+- **5-Day Precipitation:** View the accumulated precipitation over the last 5 days.
+- **Trail Recommendations:** Based on recent rainfall, get recommendations for trail use.
+
+## About
+
+This project is a collaborative effort to promote outdoor recreation and community engagement. We believe that connecting with nature is essential for our well-being, and we hope this web map enhances your outdoor experiences in San Marcos.
+
+Thank you for using the San Marcos Trails Web Map! Get out there, explore, and enjoy the beauty of nature.
+
